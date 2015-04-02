@@ -7,10 +7,20 @@ from testTeam.models.userprofile import UserStatus
 
 home = Module(__name__)
 
+
+@home.route('/')
+def index():
+    if 'username' in session and not session['username'] == None:
+        return redirect('/Project')
+    return render_template('Login.html',
+                           title = u'登陆'
+                           )
+
+@home.route('/Login',methods=['POST'])
 def login():
     email = request.json['Email']
     password = request.json['Password']
-    user = userservice.get(request.json['Email'])
+    user = userservice.get(email)
     if user == None:
         response = jsonify(isDisabled = False,isMatch=False)
         return response
@@ -28,9 +38,3 @@ def login():
     session['isadmin'] = user.IsAdmin
     response = jsonify(isDisabled=False,isMatch=True)
     return response
-
-@home.route('/')
-def index():
-    if 'username' in session and not session['username'] == None:
-        return redirect('/Project')
-    return render_template('Login.html')
