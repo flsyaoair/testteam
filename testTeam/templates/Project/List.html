@@ -1,4 +1,56 @@
 ﻿{% extends 'TestTeamLayout.html'%}
 {% block subcontent %}
-<h1>test</h1>
+<div class="post row" style="min-height: 98%;_min-height: 98%">
+	<div class="col-sm-3" ng-controller="ProjectCtrl">
+		<div class="well sidebar-nav" style="background-image: linear-gradient(to bottom,#FAFAFA 0,#f5f5f5 100%);">
+			<div class="sidebar-title">
+				<div class="row">
+					<div class="col-xs-8">项目列表</div>
+					<div class="col-xs-4 text-right" style="margin-top: 0px;">
+						<button type="button" class="" data-toggle="modal" data-target="#project_add"><i class="fa fa-plus"></i></button>
+					</div>
+				</div>
+			</div>
+			<ul class="nav nav-list">
+              <div>
+              	<a href="#">Sidebar</a>
+              </div>
+              <li class="nav-header">Sidebar</li>
+              <li class="active"><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+            </ul>
+		</div>
+		<div class="modal fade" id="project_add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-plus fa-fw"></i>创建新项目</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form" name="createProjectForm">
+                            <div class="form-group">
+                                <label for="ProjectName">项目名称<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="ProjectName" name="ProjectName" ng-model="Project.ProjectName" placeholder="项目名称" required />
+                                <div ng-show="createProjectForm.ProjectName.$dirty&&createProjectForm.ProjectName.$error.required" class="text-danger">请输入项目名称</div>
+                                <br>
+                                <label for="Introduction">项目介绍</label>
+                                <textarea rows="3" type="text" class="form-control" id="Introduction" name="Introduction" ng-model="Project.Introduction" placeholder="项目介绍" /></textarea> 
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle fa-fw"></i>关闭</button>
+                        <button type="button" id="btnCreateProject" ng-disabled="createProjectForm.$invalid" class="btn btn-primary" data-loading-text="正在创建" ng-click="create();"><i class="fa fa-save fa-fw"></i>保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+	<div class="col-sm-9">
+		模块详细信息
+	</div>
+</div>
 {% endblock %}

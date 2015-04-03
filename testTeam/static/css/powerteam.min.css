@@ -36,3 +36,11 @@ color: #222;
 text-align: left;
 margin: 20px 10px;
 }
+
+.sidebar-title {
+border-color: #FFFFFF; 
+border-bottom: 1px solid #E5E5E5;
+margin-bottom: 10px;
+padding-bottom: 5px;
+font-size: 20px;
+}
