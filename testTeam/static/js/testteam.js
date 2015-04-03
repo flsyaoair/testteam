@@ -39,3 +39,21 @@ function LoginCtrl($scope, $http) {
         });
     };
 }
+
+function RegisterCtrl($scope, $http) {
+    $scope.userExist = false;
+    $scope.register = function () {
+        $scope.userExist = false;
+        var btn = $("#btnRegister");
+        btn.button('loading');
+        $http.post('/Register/Save', $scope.User).success(function (result) {
+            btn.button('reset');
+            if (!result.created) {
+                $scope.userExist = true;
+            }
+            else {
+                window.location.href = '/test';
+            }
+        });
+    }
+}
