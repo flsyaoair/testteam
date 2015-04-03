@@ -11,7 +11,7 @@ home = Module(__name__)
 @home.route('/')
 def index():
     if 'username' in session and not session['username'] == None:
-        return redirect('/test')
+        return redirect('/Project')
     return render_template('Login.html',
                            title = u'登陆'
                            )
@@ -34,7 +34,6 @@ def login():
         return response
 
     session['userid'] = user.UserId
-    print type(session['userid']),session['userid']
     session['username'] = user.Email
     session['isadmin'] = user.IsAdmin
     response = jsonify(isDisabled=False,isMatch=True)
@@ -42,7 +41,8 @@ def login():
 
 @home.route('/Register')
 def register():
-    return render_template('Register.html')
+    return render_template('Register.html',
+                           title = u'注册')
 
 @home.route('/Register/Save',methods=['POST'])
 def save():
@@ -55,8 +55,8 @@ def save():
     result = {'created' : not exist}
     return jsonify(result)
 
-@home.route('/test')
-def test():
+@home.route('/logout')
+def logout():
     response = redirect('/')
     session['username'] = None
     session['userid'] = None

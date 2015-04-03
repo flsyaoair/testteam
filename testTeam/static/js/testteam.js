@@ -52,7 +52,7 @@ function RegisterCtrl($scope, $http) {
                 $scope.userExist = true;
             }
             else {
-                window.location.href = '/test';
+                window.location.href = '/Project';
             }
         });
     }

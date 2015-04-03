@@ -9,5 +9,6 @@ def create_testTeam_app():
     app.jinja_env.variable_end_string = '))'
     app.config.from_pyfile('testteamconfig.py')
     app.register_module(home)
+    app.register_module(project)
     
     return app

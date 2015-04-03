@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*- 
 
 import sys
-from testTeam.models import database
+from testTeam.models import database,UserProfile,UserStatus
 from datetime import datetime
 
 if '-dropcreate' in sys.argv:
@@ -11,7 +11,7 @@ if '-dropcreate' in sys.argv:
 database.create_database()
 print(u'创建数据库完成')
 
-'''
+
 session = database.get_session()
 
 admin = UserProfile()
@@ -22,7 +22,7 @@ admin.Status = UserStatus.Enabled
 admin.IsAdmin = True
 admin.RegDate = datetime.now()
 session.add(admin)
-
+'''
 bug = IssueCategory()
 bug.CategoryName = u'Bug'
 bug.Status = IssueCategoryStatus.Enabled
@@ -33,9 +33,9 @@ issue.Status = IssueCategoryStatus.Enabled
 
 session.add(bug)
 session.add(issue)
-
+'''
 session.commit()
 session.close()
-'''
+
 
 print(u'PowerTeam安装完成')
