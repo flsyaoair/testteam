@@ -44,3 +44,5 @@ margin-bottom: 10px;
 padding-bottom: 5px;
 font-size: 20px;
 }
+
+.nav>li>a{position:relative;display:block;padding:5px 20px}
