@@ -65,7 +65,6 @@ function ProjectCtrl($scope, $http) {
 		var btn = $("#btnCreateProject");
         btn.button('loading');
         $http.post('/Project/Create', $scope.Project).success(function (result) {
-        	alert('test1');
             btn.button('reset');
             $('#project_add').modal('hide');
 	        //$scope.query();

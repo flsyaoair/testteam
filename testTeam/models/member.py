@@ -3,7 +3,7 @@
 from testTeam.models.database import BaseModel
 from testTeam.models.userprofile import UserProfile
 from testTeam.models.project import Project
-from sqlalchemy import Column,Integer,ForeignKey, Integer
+from sqlalchemy import Column,ForeignKey, Integer
 from sqlalchemy.orm import relationship
 
 class Member(BaseModel):

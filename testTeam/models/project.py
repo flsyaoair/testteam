@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*- 
 from testTeam.models.database import BaseModel
-from sqlalchemy import Column,DateTime,NVARCHAR,SMALLINT,Integer,ForeignKey,UnicodeText,VARCHAR
+from sqlalchemy import Column,DateTime,NVARCHAR,SMALLINT,Integer,ForeignKey,UnicodeText
 from sqlalchemy.orm import relationship
 
 class Project(BaseModel):
@@ -14,6 +14,6 @@ class Project(BaseModel):
     UserProfile = relationship("UserProfile")
     CreateDate = Column('CreateDate', DateTime,nullable=False)
     LastUpdateDate = Column('LastUpdateDate', DateTime,nullable=False)
-#    Members = relationship("Member")
+    Members = relationship("Member")
     Introduction = Column('Introduction', UnicodeText)
 #    ProjectKey = Column('ProjectKey', VARCHAR(255),nullable=False,unique=True)
