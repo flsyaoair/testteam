@@ -2,7 +2,56 @@
 {% block subcontent %}
 <div class="post row" style="min-height: 98%;_min-height: 98%">
 	<div class="col-sm-3" ng-controller="ProjectCtrl">
-		<div class="well sidebar-nav" style="background-image: linear-gradient(to bottom,#FAFAFA 0,#f5f5f5 100%);">
+		<div class="list-group tag-sidebar">
+			<div class="list-group-item active">
+				<div class="row">
+					<div class="col-xs-8">项目列表</div>
+					<div class="col-xs-4 text-right" style="margin-top: 0px;">
+						<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#project_add"><i class="fa fa-plus"></i></button>
+					</div>
+				</div>
+			</div>
+			<a class="list-group-item" data-toggle="collapse" href="#pro1">项目一</a>
+				<div id="pro1" class="list-group tag-sidebar panel-collapse collapse" style="margin-bottom: 0px;">
+					<a class="list-group-item" href="#" style="background-color: #D1DFEA;"> <i class="fa fa-angle-right"></i> Link</a>
+					<a class="list-group-item" href="#" style="background-color: #D1DFEA;"> <i class="fa fa-angle-right"></i> Link</a>
+					<a class="list-group-item" href="#" style="background-color: #eee;"> <i class="fa fa-angle-right"></i> Link</a>
+					<a class="list-group-item" href="#" style="background-color: #eee;"> <i class="fa fa-angle-right"></i> Link</a>
+              	</div>
+			<a class="list-group-item" data-toggle="collapse" href="#pro2">项目二</a>
+				<div id="pro2" class="list-group tag-sidebar panel-collapse collapse" style="margin-bottom: 0px;">
+					<a class="list-group-item" href="#"> <i class="fa fa-tag"></i> Link</a>
+					<a class="list-group-item" href="#"> <i class="fa fa-tag"></i> Link</a>
+					<a class="list-group-item" href="#"> <i class="fa fa-tag"></i> Link</a>
+					<a class="list-group-item" href="#"> <i class="fa fa-tag"></i> Link</a>
+              	</div>
+			<a class="list-group-item" data-toggle="collapse" href="#pro3">项目三</a>
+				<div id="pro3" class="list-group tag-sidebar panel-collapse collapse" style="margin-bottom: 0px;">
+					<a class="list-group-item" href="#"> <i class="fa fa-tag"></i> Link</a>
+					<a class="list-group-item" href="#"> <i class="fa fa-tag"></i> Link</a>
+					<a class="list-group-item" href="#"> <i class="fa fa-tag"></i> Link</a>
+					<a class="list-group-item" href="#"> <i class="fa fa-tag"></i> Link</a>
+              	</div>
+			<a class="list-group-item" data-toggle="collapse" href="#pro4">项目四</a>
+				<div id="pro4" class="list-group tag-sidebar panel-collapse collapse" style="margin-bottom: 0px;">
+					<a class="list-group-item" href="#">Link</a>
+					<a class="list-group-item" href="#">Link</a>
+					<a class="list-group-item" href="#">Link</a>
+					<a class="list-group-item" href="#">Link</a>
+              	</div>
+			<a class="list-group-item" data-toggle="collapse" href="#pro5">项目五</a>
+				<div id="pro5" class="list-group tag-sidebar panel-collapse collapse" style="margin-bottom: 0px;">
+					<a class="list-group-item" href="#">Link</a>
+					<a class="list-group-item" href="#">Link</a>
+					<a class="list-group-item" href="#">Link</a>
+					<a class="list-group-item" href="#">Link</a>
+              	</div>
+			<a class="list-group-item" data-toggle="collapse" href="#pro6">项目一</a>
+			<a class="list-group-item" data-toggle="collapse" href="#pro7">项目一</a>
+			<a class="list-group-item" data-toggle="collapse" href="#pro8">项目一</a>
+			<a class="list-group-item" data-toggle="collapse" href="#pro9">项目一</a>
+        </div>
+		<!--<div class="well sidebar-nav" style="background-image: linear-gradient(to bottom,#FFFFFF 0,#FAFAFA 100%);">
 			<div class="sidebar-title">
 				<div class="row">
 					<div class="col-xs-8">项目列表</div>
@@ -36,7 +85,7 @@
 					<li><a href="#">Link</a></li>
               	</ul>
             </ul>
-		</div>
+		</div>  -->
 		<div class="modal fade" id="project_add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
