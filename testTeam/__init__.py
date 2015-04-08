@@ -10,5 +10,6 @@ def create_testTeam_app():
     app.config.from_pyfile('testteamconfig.py')
     app.register_module(home)
     app.register_module(project)
+    app.register_module(model)
     
     return app
