@@ -84,13 +84,38 @@ function UpdateProfileCtrl($scope, $http) {
             if (result.Updated) {
                 $scope.UpdateSuccess = true;
                 $scope.Error = false;
+                btn.button('reset');
+                window.location.href = '/Project';
             }
             else {
                 $scope.UpdateSuccess = false;
                 $scope.Error = true;
+                btn.button('reset');
             }
-            btn.button('reset');
-            window.location.href = '/Project';
+        });
+    }
+}
+
+function ChangePasswordCtrl($scope, $http) {
+    $scope.UpdateSuccess = false;
+    $scope.Error = false;
+    $scope.update = function () {
+        $scope.UpdateSuccess = false;
+        $scope.Error = false;
+        var btn = $("#btnUpdate");
+        btn.button('loading');
+        $http.post('/ChangePassword', $scope.User).success(function (result) {
+            if (result.Updated) {
+                $scope.UpdateSuccess = true;
+                $scope.Error = false;
+                btn.button('reset');
+                window.location.href = '/Project';
+            }
+            else {
+                $scope.UpdateSuccess = false;
+                $scope.Error = true;
+                btn.button('reset');
+            }
         });
     }
 }

@@ -26,3 +26,10 @@ def update_profile():
     if updated:
         session['username'] = email
     return jsonify(Updated=updated)
+
+@user.route('/ChangePassword',methods=['POST'])
+def change_password():
+    raw_password = request.json['RawPassword']
+    password = request.json['Password']
+    updated = userservice.change_password(raw_password,password,g.user_id)
+    return jsonify(Updated=updated)
