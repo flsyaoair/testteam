@@ -11,5 +11,6 @@ def create_testTeam_app():
     app.register_module(home)
     app.register_module(project)
     app.register_module(model)
+    app.register_module(user)
     
     return app

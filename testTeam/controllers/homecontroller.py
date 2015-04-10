@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*- 
 
-from flask import Module,render_template,jsonify, redirect, request,session
+from flask import Module,render_template,jsonify, redirect, request,session,g
 from testTeam.testteamconfig import *
 from testTeam.services import userservice
 from testTeam.models.userprofile import UserStatus
@@ -54,11 +54,3 @@ def save():
     session['isadmin'] = False
     result = {'created' : not exist}
     return jsonify(result)
-
-@home.route('/logout')
-def logout():
-    response = redirect('/')
-    session['username'] = None
-    session['userid'] = None
-    return response
-    

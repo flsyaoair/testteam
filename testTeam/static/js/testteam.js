@@ -71,3 +71,26 @@ function ProjectCtrl($scope, $http) {
 	    });
 	}
 }
+
+function UpdateProfileCtrl($scope, $http) {
+	$scope.UpdateSuccess = false;
+    $scope.Error = false;
+    $scope.update = function () {
+        $scope.UpdateSuccess = false;
+        $scope.Error = false;
+        var btn = $("#btnUpdateProfile");
+        btn.button('loading');
+        $http.post('/UpdateProfile', $scope.User).success(function (result) {
+            if (result.Updated) {
+                $scope.UpdateSuccess = true;
+                $scope.Error = false;
+            }
+            else {
+                $scope.UpdateSuccess = false;
+                $scope.Error = true;
+            }
+            btn.button('reset');
+            window.location.href = '/Project';
+        });
+    }
+}
