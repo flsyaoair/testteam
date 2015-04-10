@@ -27,7 +27,7 @@ margin-bottom: 30px;
 border-radius: 0;
 padding: 10px 20px;
 opacity: 1;
-box-shadow: black 0px 0px 0px;
+box-shadow: 0 0 5px rgba(50,50,50,.4);
 }
 
 .post-header {
@@ -46,3 +46,11 @@ font-size: 20px;
 }
 
 .li-sm{padding:5px 20px}
+
+.border3 {
+border-color: #FFFFFF; 
+border-right: 1px solid #E5E5E5;
+border-left: 1px solid #E5E5E5;
+border-bottom: 1px solid #E5E5E5;
+border-radius: 4px;
+}

@@ -8,6 +8,6 @@ from testTeam.controllers.filters import login_filter
 model = Module(__name__)
 model.before_request(login_filter)
 
-@model.route('/Project/Model')
+@model.route('/Project/Model/1')
 def index():
     return render_template('Model/List.html')
