@@ -1,0 +1,36 @@
+{% extends 'TestTeamLayout.html'%}
+{% block subcontent %}
+<div class="post main col-md-10 col-md-offset-1" ng-controller="CaseCtrl" ng-init="">
+	<div class="post-header">
+		<i class="fa fa-pencil-square-o fa-fw"></i> 新建测试用例
+	</div>
+    <div class="panel-body">
+        <form role="form" name="createCaseForm">
+            <div class="alert alert-success alert-dismissable" ng-show="AddSuccess">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <strong>创建新用例成功!</strong>
+            </div>
+            <div class="form-group">
+                <label>标题<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="" name="" ng-model="" placeholder="标题" required />
+                <div ng-show="createCaseForm.TaskName.$dirty&&createCaseForm.TaskName.$error.required" class="text-danger">请输入标题</div>
+            </div>
+            <div class="form-group">
+                <label>指派给<span class="text-danger">*</span></label>
+                <select class="form-control" ng-model="Case.AssignTo">
+                    <option value="-1">我</option>
+                    {% for member in MemberList %}
+                    <option value="((member.UserId))">((member.Nick))</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>详细内容</label>
+                <script id="editor" type="text/plain">
+                </script>
+            </div>
+            <button type="button" id="btnCreate" class="btn btn-primary" ng-disabled="createCaseForm.$invalid" data-loading-text="正在创建" ng-click="create()"><i class="fa fa-save fa-fw"></i>创建</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
