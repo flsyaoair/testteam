@@ -9,3 +9,5 @@ PORT = 8082
 DB = 'sqlite:///TestTeam.db'
 
 SECRET_KEY = 'TestTeamSecret'
+
+PAGESIZE_project = 100

@@ -17,3 +17,12 @@ def index():
 def create():
     projectservice.create(request.json['ProjectName'],request.json['Introduction'],g.user_id)
     return jsonify(created=True)
+
+@project.route('/Project/Query',methods=['POST'])
+def query():
+    page_no = request.json['PageNo']
+    (data,row_count,page_count,page_no) = projectservice.query(page_no,PAGESIZE_project,'LastUpdateDate',g.user_id)
+    projects = []
+    for p in data.all():
+        projects.append({'ProjectId':p.ProjectId,'ProjectName':p.ProjectName,'Introduction':p.Introduction,'CreateDate':p.CreateDate.isoformat(),'LastUpdateDate':p.LastUpdateDate.isoformat(),'Creator':p.UserProfile.Nick})
+    return jsonify(data=projects,row_count=row_count,page_count=page_count,page_no=page_no)

@@ -58,20 +58,6 @@ function RegisterCtrl($scope, $http) {
     }
 }
 
-function ProjectCtrl($scope, $http) {
-	$scope.ProjectList = [];
-	$scope.Query = { PageNo: 1, ProjectName: '', Introduction: '', RowCount: 0, PageCount: 0 };
-	$scope.create = function () {
-		var btn = $("#btnCreateProject");
-        btn.button('loading');
-        $http.post('/Project/Create', $scope.Project).success(function (result) {
-            btn.button('reset');
-            $('#project_add').modal('hide');
-	        //$scope.query();
-	    });
-	}
-}
-
 function UpdateProfileCtrl($scope, $http) {
 	$scope.UpdateSuccess = false;
     $scope.Error = false;
@@ -118,4 +104,25 @@ function ChangePasswordCtrl($scope, $http) {
             }
         });
     }
+}
+
+function ProjectCtrl($scope, $http) {
+	$scope.ProjectList = [];
+	$scope.Query = { PageNo: 1, ProjectName: '', Introduction: '', RowCount: 0, PageCount: 0 };
+	$scope.create = function () {
+		var btn = $("#btnCreateProject");
+        btn.button('loading');
+        $http.post('/Project/Create', $scope.Project).success(function (result) {
+            btn.button('reset');
+            $('#project_add').modal('hide');
+	        $scope.query();
+	    });
+	}
+	$scope.query = function () 
+	{
+		$http.post('/Project/Query', $scope.Query).success(function (result) 
+		{
+			$scope.ProjectList = result.data;
+		});
+	}
 }
