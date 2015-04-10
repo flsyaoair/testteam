@@ -1,70 +1,67 @@
 {% extends 'TestTeamLayout.html'%}
-{% block navs %}
-<li class="active"><a href="/Requirement"><i class="fa fa-file-text-o fa-fw"></i>需求</a></li>
-{% endblock %}
 {% block subcontent %}
-    <div class="container">
-        <div class="panel panel-primary main" ng-controller="RequirementUpdateCtrl" ng-init="RequirementId=((RequirementId));RequirementName='((Requirementdetail.RequirementName))';Versions='((Requirementdetail.Versions))';Status=((Requirementdetail.Status));StatusOld=((Requirementdetail.Status));">
-            <div class="panel-heading">
-            	<strong><i class="fa fa-file-text-o fa-fw"></i>((Requirementdetail.RequirementName))</strong>
-            	<strong class="pull-right">((Creator)) 创建于 ((Requirementdetail.LastUpdateDate.strftime('%Y-%m-%d %H:%M')))</strong>
-            </div>
-            <div class="panel-body row" style="margin-left: 20px;">
-			    <div class="col-md-9" style="border-color: #FFFFFF; border-right: 1px solid #E5E5E5;">
-					((Description|safe))
-					<div id="update" class="panel panel-info" ng-show="!ShowUpdate" style="border-color: #BBBBBB;">
-	                	<div class="panel-body">
-			                <form role="form" name="UpdateRequirmentForm">
-					            <div class="alert alert-success alert-dismissable" ng-show="AddSuccess">
-					                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-					                <strong>创建新需求成功!</strong>
-					            </div>
-					            <div class="form-group">
-					                <label>需求名称<span class="text-danger">*</span></label>
-					                <input type="text" class="form-control" id="RequirementName" name="RequirementName" ng-model="RequirementName" placeholder="需求名称" required />
-					            </div>
-					            <div class="form-group">
-					                <label>版本<span class="text-danger">*</span></label>
-					                <input type="text" class="form-control" name="Versions" ng-model="Versions" placeholder="版本" required />
-					            </div>
-					            <div class="form-group">
-					                <label>状态</label>
-					                <select class="form-control" ng-model="Status">
-					                    <option value="1">进行中</option>
-					                    <option value="2">已完成</option>
-					                    <option value="3">已取消</option>
-					                </select>
-					            </div>
-								<div class="form-group">
-								    <label>内容</label>
-									<script id="editor1" type="text/plain">((Requirementdetail.Description|safe))</script>
-								</div>
-					            <button type="button" id="btnUpdate" ng-disabled="UpdateRequirmentForm.$invalid" class="btn btn-primary" data-loading-text="正在更新" ng-click="update()"><i class="fa fa-save fa-fw"></i>更新</button>
-			           		</form>
-			           	</div>
-			        </div>
-				</div>
-				<div class="col-md-3" style="border-color: #FFFFFF;">
-					<div class=" text-right">
-						<div class="btn-group">
-							<a type="button" class="btn btn-success btn-xs" ng-click="edit()" href="#update">更新</a>
-					        <a href="/Requirement" class="btn btn-default btn-xs">返回</a>
-					    </div>
+<div class="container">
+    <div class="post main" ng-controller="CaseCtrl" ng-init="">
+        <div class="post-header">
+        	<strong><i class="fa fa-file-text-o fa-fw"></i>'测试用例名称'</strong>
+        	<strong class="pull-right">((Creator)) 创建于 Requirementdetail.LastUpdateDate.strftime('%Y-%m-%d %H:%M')</strong>
+        </div>
+        <div class="panel-body row" style="margin-left: 20px;">
+		    <div class="col-md-9" style="border-color: #FFFFFF; border-right: 1px solid #E5E5E5;">
+				Bootstrap中的JavaScript引入单个插件还是一次性引入所有插件每个插件都可以单独的引入到页面中（注意插件间的依赖关系），或者一次性引入。bootstrap.js 和bootstrap.min.js 文件都将所有插件包含在一个文件中了（前者是未压缩版，后者是压缩版）。Data 属性你可以仅仅通过data属性API就能使用所有Bootstrap中的插件，而且不用写一行JavaScript代码。这是Bootstrap中的一等API，并且是你的首选方式。特殊情况是，在某些情况下可能需要特意禁用这种默认动作。因此，我们特地提供了禁用data属性API的方式，通过解除绑定在body上的被命名为`'data-api'`的事件即可实现。如下所示：$('body').off('.data-api')还可以解除特定插件的事件绑定，只要将插件名和data-api链接在一起作为参数使用。如下所示：$('body').off('.alert.data-api')编程API我们同时为所有Bootstrap插件提供了JavaScript API。所有公开的API都可以单独或链式调用，均返回其所操作的集合（和jQuery的API一致）。$(".btn.danger").button("toggle").addClass("fat")所有方法均可接受一个可选的参数对象、一个对此方法有特定意义的字符串或者什么也不传（即用默认参数初始化此插件）：$("#myModal").modal()                       // initialized with defaults$("#myModal").modal({ keyboard: false })   // initialized with no keyboard$("#myModal").modal('show')                // initializes and invokes show immediately每个插件都通过`Constructor` 属性暴露了其原始的构造函数：$.fn.popover.Constructor。如果你想获得某个特定插件的实例，可以直接从页面元素中获取：$('[rel=popover]').data('popover').No Conflict有时你需要在使用Bootstrap插件时同时使用其它UI框架。在这种情况下，随时都会导致命名空间冲突。如果这种情况发生了，你可以通过调用插件的 .noConflict 函数恢复其原始值。var bootstrapButton = $.fn.button.noConflict() // return $.fn.button to previously assigned value$.fn.bootstrapBtn = bootstrapButton            // give $().bootstrapBtn the bootstrap functionality事件Bootstrap对多数插件的独有行为提供了自定义事件。 一般而言，这些事件都是以（英语）动词的原型和过去分词形式来表示的 - 动词原形形式的(例如： show) 在事件执行之前触发；过去分词形式的(例如：shown) 在动作执行完毕后触发。所有动词原形形式的事件都提供了preventDefault函数。这能在动作执行之前使其停止。$('#myModal').on('show', function (e) {if (!data) return e.preventDefault() // stops modal from being shown})过渡效果 bootstrap-transition.js关于过渡效果对于简单的过度效果，只要在引入其它JS文件时一同引入bootstrap-transition.js文件即可。如果你引入的是编译（或压缩）之后的bootstrap.js文件，就不再需要引入此文件了，因为bootstrap.js文件已经包含了此插件。使用案例
+				<div id="update" class="panel panel-info" ng-show="!ShowUpdate" style="border-color: #BBBBBB;">
+                	<div class="panel-body">
+		                <form role="form" name="UpdateRequirmentForm">
+				            <div class="alert alert-success alert-dismissable" ng-show="AddSuccess">
+				                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				                <strong>创建新需求成功!</strong>
+				            </div>
+				            <div class="form-group">
+				                <label>需求名称<span class="text-danger">*</span></label>
+				                <input type="text" class="form-control" id="RequirementName" name="RequirementName" ng-model="RequirementName" placeholder="需求名称" required />
+				            </div>
+				            <div class="form-group">
+				                <label>指派给<span class="text-danger">*</span></label>
+				                <input type="text" class="form-control" name="Versions" ng-model="Versions" placeholder="版本" required />
+				            </div>
+				            <div class="form-group">
+				                <label>状态</label>
+				                <select class="form-control" ng-model="Status">
+				                    <option value="1">进行中</option>
+				                    <option value="2">已完成</option>
+				                    <option value="3">已取消</option>
+				                </select>
+				            </div>
+							<div class="form-group">
+							    <label>内容</label>
+								<script id="editor1" type="text/plain">Requirementdetail.Description|safe</script>
+							</div>
+				            <button type="button" id="btnUpdate" ng-disabled="UpdateRequirmentForm.$invalid" class="btn btn-primary" data-loading-text="正在更新" ng-click="update()"><i class="fa fa-save fa-fw"></i>更新</button>
+		           		</form>
+		           	</div>
+		        </div>
+			</div>
+			<div class="col-md-3" style="border-color: #FFFFFF;">
+				<div class=" text-right">
+					<div class="btn-group">
+						<a type="button" class="btn btn-success btn-xs" ng-click="edit()" href="#update">更新</a>
+				        <a href="/Requirement" class="btn btn-default btn-xs">返回</a>
 				    </div>
-			        <hr>
-			        <p>版本：<strong class="label label-success">((Requirementdetail.Versions))</strong></p>
-			        <p>
-			        	<div ng-switch on="StatusOld">
-			                状态:
-			                <strong class="label label-primary" ng-switch-when="1">进行中</strong>
-			                <strong class="label label-success" ng-switch-when="2">已完成</strong>
-			                <strong class="label label-default" ng-switch-when="3">已取消</strong>
-			            </div>
-			        </p>
-				</div>
-      		</div>
-		</div>
+			    </div>
+		        <hr>
+		        <p>版本：<strong class="label label-success">Requirementdetail.Versions</strong></p>
+		        <p>
+		        	<div ng-switch on="StatusOld">
+		                状态:
+		                <strong class="label label-primary" ng-switch-when="1">进行中</strong>
+		                <strong class="label label-success" ng-switch-when="2">已完成</strong>
+		                <strong class="label label-default" ng-switch-when="3">已取消</strong>
+		            </div>
+		        </p>
+			</div>
+  		</div>
 	</div>
+</div>
 
 
 {% endblock %}

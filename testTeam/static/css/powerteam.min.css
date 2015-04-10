@@ -35,8 +35,9 @@ font-size: 21px;
 color: #222;
 text-align: left;
 margin: 10px 10px;
-padding-bottom: 10px;
+padding: 10px;
 border-bottom: 1px solid #BBB;
+background-color: rgba(222, 222, 222, 0.4);
 }
 
 .sidebar-title {
