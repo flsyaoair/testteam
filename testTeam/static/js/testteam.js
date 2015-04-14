@@ -149,17 +149,14 @@ function ProjectCtrl($scope, $http)
 			$scope.ProjectList = result.data;
 		});
 	}
+	$scope.before = 0;
 	$scope.toggle = function (t) 
 	{
-		for (i=0;i<1000;i++)
-		{	
-			$('#demo'+i).collapse("hide");
-		}
+
+		$($scope.before).collapse("hide");
+
 		$(t).collapse("toggle");
-	}
-	$scope.close = function (t) 
-	{
-		$(t).collapse("hide");
+		$scope.before = t;
 	}
 }
 
