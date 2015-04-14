@@ -1,10 +1,11 @@
 ﻿{% extends 'TestTeamLayout.html'%}
 {% block subcontent %}
-<div class="post row" style="min-height: 98%;_min-height: 98%">
+<div class="post row" ng-controller="ProjectCtrl" ng-init="query()" style="min-height: 98%;_min-height: 98%">
 	<ul id="myTab" class="nav nav-tabs">
-		<li class="active"><a href="" data-toggle="tab">全部</a></li>
+		<li><a href="" data-toggle="tab">全部</a></li>
 		<li><a href="" data-toggle="tab">分类1</a></li>
 		<li><a href="" data-toggle="tab">分类2</a></li>
+		<li><a href="CreatView" data-toggle="tab"> <i class="fa fa-plus fa-fw" style="height: 20px;"></i> </a></li>
 		<li class="dropdown">
 			<a href="#" class="dropdown-toggle" data-toggle="dropdown">其他分类 <b class="caret"></b></a>
 			<ul class="dropdown-menu">
@@ -12,10 +13,13 @@
 				<li><a href="" data-toggle="tab">分类4</a></li>
 			</ul>
 		</li>
+		<script> $(function () {
+		    $('#myTab a:first').tab('show')
+		  }) </script>
 	</ul>
     <br>
-	<div class="col-sm-3" ng-controller="ProjectCtrl" ng-init="query()">
-		<div class="list-group tag-sidebar">
+	<div class="col-sm-3">
+		<div id="onlyone" class="list-group tag-sidebar">
 			<div class="list-group-item" style="background-color: rgba(222, 222, 222, 0.4);">
 				<div class="row">
 					<div class="col-xs-8"><strong>项目列表</strong></div>
@@ -24,15 +28,26 @@
 					</div>
 				</div>
 			</div>
-			<div ng-repeat="Project in ProjectList">
-				<a class="list-group-item" data-toggle="collapse" href="#project{{Project.ProjectId}}"  style="border-radius: 0px;">{{Project.ProjectName}}</a>
+			<div class="panel" ng-repeat="Project in ProjectList" style="margin-bottom: 0px; border: 0px;">
+				<a class="list-group-item" data-toggle="collapse" data-parent="#onlyone" href="#project{{Project.ProjectId}}" ng-click="toggle('#demo' + Project.ProjectId)" style="border-radius: 0px;">{{Project.ProjectName}}</a>
 				<div id="project{{Project.ProjectId}}" class="list-group tag-sidebar panel-collapse collapse" style="margin-bottom: 0px;">
-					<a class="list-group-item text-center" href="www.baidu.com"style="background-color: #D1DFEA;">-----详细----</a>
 					<a class="list-group-item" href="#home" data-toggle="tab" style="background-color: #D1DFEA;"> <i class="fa fa-angle-right"></i> Link</a>
 					<a class="list-group-item" href="#home2" data-toggle="tab" style="background-color: #D1DFEA;"> <i class="fa fa-angle-right"></i> Link</a>
 					<a class="list-group-item" href="#" style="background-color: #eee;"> <i class="fa fa-angle-right"></i> Link</a>
 					<a class="list-group-item" href="#" style="background-color: #eee;"> <i class="fa fa-tag"></i> Link</a>
               	</div>
+              	
+              	<script type="text/javascript"> 
+			     function Toggle(){
+			        $("#demo").collapse("toggle");
+			        }
+			     function Open(t){
+			     	alert(t);
+			        $(t).collapse("show");
+			        }
+			    function Hide(){
+			        $("#demo").collapse("hide");
+			        } </script>
         	</div>
         </div>
 
@@ -66,7 +81,12 @@
 	<div class="col-sm-9">
 		<div class="">
             <div id="myTabContent" class="tab-content">
-              <div class="tab-pane fade in active" id="home">
+             <div class="panel-group" id="onlyone">
+             {% for p in projects %}
+              	<div id="demo((p.ProjectId))" class="collapse in" ng-init="close( '#demo((p.ProjectId))' )"> ((p.Introduction)) <hr><hr><hr></div> 
+             {% endfor %}
+             </div>
+              <div class="tab-pane fade  active" id="home">
                 <table class="table table-striped table-hover">  
 			      <thead>  
 			        <tr>  
@@ -105,7 +125,42 @@
 			    </table>  
               </div>
               <div class="tab-pane fade" id="home2">
-                <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+   
+   
+					
+					     <div class="panel-group" id="onlyone">
+					      <div class="panel">
+					
+					
+					            <a data-toggle="collapse" data-toggle="collapse" data-parent="#onlyone" href="#collapseOne"> Collapsible Group Item </a>
+					
+					
+					        <div id="collapseOne" class="panel-collapse collapse in">
+					          <div class="panel-body"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS. </div>
+					        </div>
+					
+					
+					
+					            <a data-toggle="collapse" data-toggle="collapse" data-parent="#onlyone" href="#collapseTwo"> Collapsible Group Item #2 </a>
+					
+					
+					        <div id="collapseTwo" class="panel-collapse collapse">
+					          <div class="panel-body"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS. </div>
+					        </div>
+					
+					
+					
+					            <a data-toggle="collapse" data-toggle="collapse" data-parent="#onlyone" href="#collapseThree"> Collapsible Group Item #3 </a>
+					
+					
+					        <div id="collapseThree" class="panel-collapse collapse">
+					          <div class="panel-body"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS. </div>
+					        </div>
+					      </div>
+					    </div>
+					
+   
+   
               </div>
               <div class="tab-pane fade" id="dropdown1">
                 <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.</p>

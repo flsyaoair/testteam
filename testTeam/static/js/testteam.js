@@ -131,7 +131,8 @@ function ProjectCtrl($scope, $http)
 {
 	$scope.ProjectList = [];
 	$scope.Query = { PageNo: 1, ProjectName: '', Introduction: '', RowCount: 0, PageCount: 0 };
-	$scope.create = function () {
+	$scope.create = function () 
+	{
 		var btn = $("#btnCreateProject");
         btn.button('loading');
         $http.post('/Project/Create', $scope.Project).success(function (result) 
@@ -147,6 +148,18 @@ function ProjectCtrl($scope, $http)
 		{
 			$scope.ProjectList = result.data;
 		});
+	}
+	$scope.toggle = function (t) 
+	{
+		for (i=0;i<1000;i++)
+		{	
+			$('#demo'+i).collapse("hide");
+		}
+		$(t).collapse("toggle");
+	}
+	$scope.close = function (t) 
+	{
+		$(t).collapse("hide");
 	}
 }
 

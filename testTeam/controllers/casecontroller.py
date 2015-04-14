@@ -7,7 +7,7 @@ from testTeam.controllers.filters import login_filter
 case = Module(__name__)
 case.before_request(login_filter)
 
-@case.route('/CreatCase/1')
+@case.route('/CreateCase/1')
 def creat():
     return render_template('Case/Create.html')
 
