@@ -11,9 +11,7 @@ project.before_request(login_filter)
 
 @project.route('/Project')
 def index():
-    (data,row_count,page_count,page_no) = projectservice.query(1,PAGESIZE_project,'LastUpdateDate',g.user_id)
-
-    return render_template('Project/List.html',projects=data.all())
+    return render_template('Project/List.html')
 
 @project.route('/Project/Create',methods=['POST'])
 def create():

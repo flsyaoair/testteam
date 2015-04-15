@@ -152,9 +152,7 @@ function ProjectCtrl($scope, $http)
 	$scope.before = 0;
 	$scope.toggle = function (t) 
 	{
-
 		$($scope.before).collapse("hide");
-
 		$(t).collapse("toggle");
 		$scope.before = t;
 	}
@@ -168,4 +166,32 @@ function ModelCtrl($scope, $http)
 function CaseCtrl($scope, $http) 
 {
 	editor = UE.getEditor('editor');
+}
+
+function ClassCtrl($scope, $http) 
+{
+	editor = UE.getEditor('editor');
+	$scope.Class = {Project: []};
+	$scope.toggle = function (p) 
+    {  
+		p.ck = !p.ck;
+		if ( p.ck == true )
+		{
+			p.id = p.ProjectId;
+			$scope.Class.Project.push(p.id);
+			
+		} 
+		else
+		{
+			p.id = -1;
+			$scope.Class.Project.pop(p.id);
+		}
+    }
+	$scope.create = function () 
+	{
+		var btn = $("btnCreateClass");
+        btn.button('loading');
+        alert($scope.Class.Project);
+	}
+	
 }

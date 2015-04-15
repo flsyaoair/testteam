@@ -57,3 +57,8 @@ border-left: 1px solid #E5E5E5;
 border-bottom: 1px solid #E5E5E5;
 border-radius: 4px;
 }
+
+.border-left {
+border-color: #FFFFFF; 
+border-left: 1px solid #E5E5E5;
+}
