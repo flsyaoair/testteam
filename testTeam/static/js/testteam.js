@@ -177,15 +177,13 @@ function ClassCtrl($scope, $http)
 		p.ck = !p.ck;
 		if ( p.ck == true )
 		{
-			p.id = p.ProjectId;
-			$scope.Class.Project.push(p.id);
-			
+			$scope.Class.Project.push(p.ProjectId);
 		} 
 		else
 		{
-			p.id = -1;
-			$scope.Class.Project.pop(p.id);
+			$scope.Class.Project.splice($.inArray((p.ProjectId),$scope.Class.Project),1);
 		}
+		
     }
 	$scope.create = function () 
 	{
