@@ -152,6 +152,7 @@ function ProjectCtrl($scope, $http)
 	$scope.before = 0;
 	$scope.toggle = function (t) 
 	{
+		
 		$($scope.before).collapse("hide");
 		$(t).collapse("toggle");
 		$scope.before = t;

@@ -83,15 +83,14 @@
 					<button type="button" id="btnCreateClass" class="btn btn-primary" ng-disabled="createClassForm.$invalid" data-loading-text="正在创建" ng-click="create()"><i class="fa fa-save fa-fw"></i>创建</button>
 				</div>
 			</div>
-
 		</form>
-		
+	
 		<div class="">
-            <div class="tab-pane fade" id="myTabContent" >
-             <div class="panel-group">
-				<div ng-repeat="Project in ProjectList">
+            <div id="myTabContent" class="tab-content">
+             <div class="panel-group" id="onlyone">
+             	<div ng-repeat="Project in ProjectList">
               		<div id="demo{{Project.ProjectId}}" class="collapse" > {{Project.Introduction}} <hr><hr><hr></div> 
-				</div>
+             	</div>
              </div>
               <div class="tab-pane fade  active" id="home">
                 <table class="table table-striped table-hover">  
