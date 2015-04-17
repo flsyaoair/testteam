@@ -1,0 +1,89 @@
+﻿{% extends 'TestTeamLayout.html'%}
+{% block subcontent %}
+<div class="post row" ng-controller="ProjectCtrl" ng-init="query()" style="min-height: 98%;_min-height: 98%">
+	<ul id="myTab" class="nav nav-tabs">
+		<li><a href="" data-toggle="tab">全部</a></li>
+		<li><a href="" data-toggle="tab">分类1</a></li>
+		<li><a href="" data-toggle="tab">分类2</a></li>
+		<li><a href="#CreatView" ng-click="test()" data-toggle="tab"> <i class="fa fa-plus fa-fw" style="height: 20px;"></i> </a></li>
+		<script> $(function () {
+		    $('#myTab a:last').tab('show')
+		  }) 
+		</script>
+	</ul>
+    <br>
+	<div class="col-sm-3">
+		<div id="onlyone" class="list-group tag-sidebar">
+			<div class="list-group-item" style="background-color: rgba(222, 222, 222, 0.4);">
+				<div class="row">
+					<div class="col-xs-8"><strong>项目列表</strong></div>
+					<div class="col-xs-4 text-right" style="margin-top: 0px;">
+						<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#project_add"><i class="fa fa-plus"></i></button>
+					</div>
+				</div>
+			</div>
+			<div class="panel" ng-repeat="Project in ProjectList" style="margin-bottom: 0px; border: 0px;">
+				<a class="list-group-item" data-toggle="collapse" data-parent="#onlyone" href="#project{{Project.ProjectId}}" ng-click="toggle('#demo' + Project.ProjectId)" style="border-radius: 0px;">{{Project.ProjectName}}</a>
+				<div id="project{{Project.ProjectId}}" class="list-group tag-sidebar panel-collapse collapse" style="margin-bottom: 0px;">
+					<a class="list-group-item" href="#home" data-toggle="tab" style="background-color: #D1DFEA;"> <i class="fa fa-angle-right"></i> Link</a>
+					<a class="list-group-item" href="#home2" data-toggle="tab" style="background-color: #D1DFEA;"> <i class="fa fa-angle-right"></i> Link</a>
+					<a class="list-group-item" href="#" style="background-color: #eee;"> <i class="fa fa-angle-right"></i> Link</a>
+					<a class="list-group-item" href="#" style="background-color: #eee;"> <i class="fa fa-tag"></i> Link</a>
+              	</div>
+        	</div>
+        </div>
+
+		<div class="modal fade" id="project_add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-plus fa-fw"></i>创建新项目</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form" name="createProjectForm">
+                            <div class="form-group">
+                                <label for="ProjectName">项目名称<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="ProjectName" name="ProjectName" ng-model="Project.ProjectName" placeholder="项目名称" required />
+                                <div ng-show="createProjectForm.ProjectName.$dirty&&createProjectForm.ProjectName.$error.required" class="text-danger">请输入项目名称</div>
+                                <br>
+                                <label for="Introduction">项目介绍</label>
+                                <textarea rows="3" type="text" class="form-control" id="Introduction" name="Introduction" ng-model="Project.Introduction" placeholder="项目介绍" /></textarea> 
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle fa-fw"></i>关闭</button>
+                        <button type="button" id="btnCreateProject" ng-disabled="createProjectForm.$invalid" class="btn btn-primary" data-loading-text="正在创建" ng-click="create();"><i class="fa fa-save fa-fw"></i>保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+	<div class="col-sm-9">
+		<form class="form-horizontal tab-content fade in" id="CreatView" role="form" name="createClassForm" ng-controller="ClassCtrl" novalidate ><br>
+			<div class="form-group"  ng-class="{ 'has-error' : (createClassForm.Name.$dirty&&createClassForm.Name.$error.required) }">
+				<label class="col-sm-2 control-label text-right"><span class="text-danger">*</span>分类名称</label>
+				<div class="col-sm-6">
+					<input class="form-control" ng-model="Class.Name" type="text" name="Name" placeholder="分类名称" required />
+				</div>
+				<div class="col-sm-3">
+	            	<div ng-show="createClassForm.Name.$dirty&&createClassForm.Name.$error.required" class="control-label text-danger" style="text-align: left;">请输入分类名称</div>
+	            </div>
+			</div>
+			<div class="row">
+				<div class="col-sm-4 col-sm-push-2">
+					<label class="checkbox" ng-repeat="Project in ProjectList">
+						<input type="checkbox" ng-init="Project.id = -1;" ng-click="toggle(Project)">{{Project.ProjectName}}
+					</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-10 col-sm-push-2"><br>
+					<button type="button" id="btnCreateClass" class="btn btn-primary" ng-disabled="createClassForm.$invalid" data-loading-text="正在创建" ng-click="create()"><i class="fa fa-save fa-fw"></i>创建</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+{% endblock %}

@@ -13,5 +13,6 @@ def create_testTeam_app():
     app.register_module(model)
     app.register_module(user)
     app.register_module(case)
+    app.register_module(classes)
     
     return app

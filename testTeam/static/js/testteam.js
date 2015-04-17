@@ -188,9 +188,17 @@ function ClassCtrl($scope, $http)
     }
 	$scope.create = function () 
 	{
-		var btn = $("btnCreateClass");
+		var btn = $("#btnCreateClass");
         btn.button('loading');
-        alert($scope.Class.Project);
+        $http.post('/Classes/Create', $scope.Class).success(function (result) 
+        {
+        	btn.button('reset');
+            $('#class_add').modal('hide');
+//	        $scope.query();
+        });
 	}
-	
+	$scope.newclass = function()
+	{
+		$('#class_add').modal('show');
+	}
 }

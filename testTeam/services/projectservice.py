@@ -17,6 +17,7 @@ def create(project_name,project_introduction,creator):
 
     session.add(p)
     session.commit()
+    session.close()
     
 def query(page_no,page_size,order_by,current_user):
     session = database.get_session()
