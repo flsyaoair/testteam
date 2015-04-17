@@ -11,6 +11,12 @@ classes.before_request(login_filter)
 def create():
     classname = request.json['Name']
     projects = request.json['Project']
-    for project in projects:
-        classesservice.create(classname,project,g.user_id)
-    return jsonify(created=True)
+    existname = classesservice.get_name()
+
+    if not classname in existname:
+        isexist = False
+        for project in projects:
+            classesservice.create(classname,project,g.user_id)
+    else:
+        isexist = True
+    return jsonify(isexist=isexist)

@@ -186,19 +186,32 @@ function ClassCtrl($scope, $http)
 		}
 		
     }
+    $scope.newclass = function()
+	{
+		$('#class_add').modal('show');
+	}
 	$scope.create = function () 
 	{
 		var btn = $("#btnCreateClass");
         btn.button('loading');
         $http.post('/Classes/Create', $scope.Class).success(function (result) 
         {
-        	btn.button('reset');
-            $('#class_add').modal('hide');
-//	        $scope.query();
+        	if (!result.isexist)
+        	{	
+        		$scope.isExist = false;
+	        	btn.button('reset');
+	            $('#class_add').modal('hide');
+	//	        $scope.query();
+			}
+			else
+			{
+				$scope.isExist = true;
+				btn.button('reset');
+			}
         });
 	}
-	$scope.newclass = function()
+	$scope.query = function ()
 	{
-		$('#class_add').modal('show');
+		
 	}
 }

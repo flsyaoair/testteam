@@ -26,6 +26,7 @@
 								</div>
 								<div class="col-sm-3">
 					            	<div ng-show="createClassForm.Name.$dirty&&createClassForm.Name.$error.required" class="control-label text-danger" style="text-align: left;">请输入分类名称</div>
+					            	<div ng-show="isExist" class="control-label text-danger" style="text-align: left;">分类名已存在！</div>
 					            </div>
 							</div>
 							<div class="row">
