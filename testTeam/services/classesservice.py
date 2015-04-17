@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*- 
-from testTeam.models import Project, database, Member, Classes
+from testTeam.models import database, Classes
 from datetime import datetime
 
 def create(classname,project,creator):

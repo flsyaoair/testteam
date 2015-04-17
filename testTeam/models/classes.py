@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*- 
 from testTeam.models.database import BaseModel
-from sqlalchemy import Column,DateTime,NVARCHAR,SMALLINT,Integer,ForeignKey,UnicodeText
+from sqlalchemy import Column,DateTime,NVARCHAR,Integer,ForeignKey
 from sqlalchemy.orm import relationship
 from testTeam.models.project import Project
 
