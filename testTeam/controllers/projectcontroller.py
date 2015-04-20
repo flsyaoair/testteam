@@ -21,7 +21,8 @@ def create():
 @project.route('/Project/Query',methods=['POST'])
 def query():
     page_no = request.json['PageNo']
-    (data,row_count,page_count,page_no) = projectservice.query(page_no,PAGESIZE_project,'LastUpdateDate',g.user_id)
+    class_name = request.json['ClassName']
+    (data,row_count,page_count,page_no) = projectservice.query(page_no,PAGESIZE_project,'LastUpdateDate',g.user_id,class_name)
     projects = []
     for p in data.all():
         projects.append({'ProjectId':p.ProjectId,'ProjectName':p.ProjectName,'Introduction':p.Introduction,'CreateDate':p.CreateDate.isoformat(),'LastUpdateDate':p.LastUpdateDate.isoformat(),'Creator':p.UserProfile.Nick})

@@ -16,11 +16,31 @@ def create(classname,project,creator):
     session.commit()
     session.close()
     
-def get_name():
+# def get_name():
+#     session = database.get_session()
+#     existname = session.query(Classes).all()
+#     namelist = []
+#     for i in existname:
+#         namelist.append(i.ClassName)
+#         
+#     return namelist
+
+def isexist(classname):
     session = database.get_session()
-    existname = session.query(Classes).all()
-    namelist = []
-    for i in existname:
-        namelist.append(i.ClassName)
-        
-    return namelist
+    existcount = session.query(Classes).filter(Classes.ClassName == classname).count()
+    if existcount > 0:
+        return True
+    else:
+        return False
+    
+def query():
+    session = database.get_session()
+    classlist = session.query(Classes).all()
+    class_list = []
+    name_list = []
+    for i in classlist:
+        if not i.ClassName in name_list:
+            class_list.append(i)
+            name_list.append(i.ClassName)
+    return class_list
+    

@@ -130,7 +130,7 @@ function ChangePasswordCtrl($scope, $http)
 function ProjectCtrl($scope, $http) 
 {
 	$scope.ProjectList = [];
-	$scope.Query = { PageNo: 1, ProjectName: '', Introduction: '', RowCount: 0, PageCount: 0 };
+	$scope.Query = { PageNo: 1, ProjectName: '', Introduction: '', RowCount: 0, PageCount: 0, ClassName: "all" };
 	$scope.create = function () 
 	{
 		var btn = $("#btnCreateProject");
@@ -142,6 +142,7 @@ function ProjectCtrl($scope, $http)
 	        $scope.query();
 	    });
 	}
+	$scope.classfilter = '1';
 	$scope.query = function () 
 	{
 		$http.post('/Project/Query', $scope.Query).success(function (result) 
@@ -201,7 +202,8 @@ function ClassCtrl($scope, $http)
         		$scope.isExist = false;
 	        	btn.button('reset');
 	            $('#class_add').modal('hide');
-	//	        $scope.query();
+		        $scope.query_class();
+		        $('#myTab a:first').tab('show');
 			}
 			else
 			{
@@ -210,8 +212,13 @@ function ClassCtrl($scope, $http)
 			}
         });
 	}
-	$scope.query = function ()
+	$scope.ClassesList = []
+	$scope.query_class = function ()
 	{
-		
+		$http.post('/Classes/Query', $scope.QueryClasses).success(function (result) 
+		{
+			$scope.ClassesList = result.class_list;
+		});
 	}
+
 }

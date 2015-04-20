@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*- 
-from testTeam.models import Project, database, Member
+from testTeam.models import Project, database, Member, Classes
 from datetime import datetime
 
 def create(project_name,project_introduction,creator):
@@ -19,11 +19,20 @@ def create(project_name,project_introduction,creator):
     session.commit()
     session.close()
     
-def query(page_no,page_size,order_by,current_user):
+def query(page_no,page_size,order_by,current_user,class_name):
     session = database.get_session()
+    
     projectid_list = session.query(Member.ProjectId).filter(Member.UserId == current_user)
-    project_list = session.query(Project).filter(Project.ProjectId.in_(projectid_list))
+    if class_name != "all":
+        projectid_list = session.query(Classes.ProjectId).filter(Classes.ClassName == class_name)
+        
+    project_list = session.query(Project).filter(Project.ProjectId.in_(projectid_list))    
     (data,row_count,page_count,page_no) = database.query_more(project_list,order_by,page_no,page_size)
     
     session.close()
     return (data,row_count,page_count,page_no)
+
+# def querysub(class_name,order_by,current_user):
+#     session = database.get_session()
+#     subprojects_id = session.query(Classes.ProjectId).filter(Classes.ClassName = class_name)
+#     subproject_list = session.query(Project).filter(Project.ProjectId.in_(subprojects_id))

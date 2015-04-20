@@ -9,7 +9,7 @@ class Classes(BaseModel):
     __tablename__ = 'Classes'
     ClassId = Column('ClassId', Integer,primary_key=True,nullable=False,autoincrement=True)
     ClassName = Column('ClassName', NVARCHAR(30),nullable=False)
-    ProjectId = Column('ProjectId', Integer, ForeignKey('Project.ProjectId'), nullable=False)
+    ProjectId = Column('ProjectId', Integer, ForeignKey('Project.ProjectId'))
     Project = relationship('Project', foreign_keys=ProjectId,primaryjoin=ProjectId == Project.ProjectId)
     Creator = Column('Creator', Integer,ForeignKey('UserProfile.UserId'),nullable = False)
     UserProfile = relationship("UserProfile")
