@@ -189,6 +189,8 @@ function ClassCtrl($scope, $http)
     }
     $scope.newclass = function()
 	{
+		$scope.Query.ClassName='all';
+		$scope.query();
 		$('#class_add').modal('show');
 	}
 	$scope.create = function () 
@@ -212,7 +214,7 @@ function ClassCtrl($scope, $http)
 			}
         });
 	}
-	$scope.ClassesList = []
+	$scope.ClassesList = [];
 	$scope.query_class = function ()
 	{
 		$http.post('/Classes/Query', $scope.QueryClasses).success(function (result) 
@@ -220,5 +222,4 @@ function ClassCtrl($scope, $http)
 			$scope.ClassesList = result.class_list;
 		});
 	}
-
 }
