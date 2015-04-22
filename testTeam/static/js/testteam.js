@@ -226,19 +226,22 @@ function ClassCtrl($scope, $http)
 			$scope.ClassesList = result.class_list;
 		});
 	}
-	
-	$scope.EditClasses = { OldName : "" };
-	$scope.openEditClasses = function () 
+	$scope.UpdateClass = { OldName : "" };
+	$scope.openUpdateClass = function () 
 	{
 		//先查出所有project列表
 		$scope.Query.ClassName='all';
 		$scope.query_inclass();  					//在projectctrl里
-		$scope.oldname = $scope.EditClasses.OldName
+		//$scope.OldName = $scope.UpdateClass.OldName;
 		$('#class_edit').modal('show');
-		alert($scope.EditClasses.OldName);
 	}
-	
-	$scope.deleteClasses = function () 
+	$scope.update = function () 
+	{
+		var btn = $("#btnUpdateClass");
+        btn.button('loading');
+        alert($scope.UpdateClass.OldName);
+    }
+	$scope.deleteClass = function () 
 	{
 		var btn = $("#btnDeleteClass");
         btn.button('loading');
