@@ -142,12 +142,17 @@ function ProjectCtrl($scope, $http)
 	        $scope.query();
 	    });
 	}
-	$scope.classfilter = '1';
 	$scope.query = function () 
 	{
 		$http.post('/Project/Query', $scope.Query).success(function (result) 
 		{
 			$scope.ProjectList = result.data;
+		});
+	}
+	$scope.query_inclass = function (){
+		$http.post('/Project/Query', $scope.Query).success(function (result) 
+		{
+			$scope.ProjectListInEdit = result.data;							//更新分类里面的项目列表，区别于正常的项目列表
 		});
 	}
 	$scope.before = 0;
@@ -185,12 +190,11 @@ function ClassCtrl($scope, $http)
 		{
 			$scope.Class.Project.splice($.inArray((p.ProjectId),$scope.Class.Project),1);
 		}
-		
     }
     $scope.newclass = function()
 	{
 		$scope.Query.ClassName='all';
-		$scope.query();
+		$scope.query_inclass();
 		$('#class_add').modal('show');
 	}
 	$scope.create = function () 
@@ -221,5 +225,24 @@ function ClassCtrl($scope, $http)
 		{
 			$scope.ClassesList = result.class_list;
 		});
+	}
+	
+	$scope.EditClasses = { OldName : "" };
+	$scope.openEditClasses = function () 
+	{
+		//先查出所有project列表
+		$scope.Query.ClassName='all';
+		$scope.query_inclass();  					//在projectctrl里
+		$scope.oldname = $scope.EditClasses.OldName
+		$('#class_edit').modal('show');
+		alert($scope.EditClasses.OldName);
+	}
+	
+	$scope.deleteClasses = function () 
+	{
+		var btn = $("#btnDeleteClass");
+        btn.button('loading');
+        alert("deleteclass");
+        btn.button('reset');
 	}
 }
