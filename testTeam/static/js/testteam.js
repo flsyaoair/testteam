@@ -226,13 +226,14 @@ function ClassCtrl($scope, $http)
 			$scope.ClassesList = result.class_list;
 		});
 	}
-	$scope.UpdateClass = { OldName : "" };
+	$scope.UpdateClass = { OldName : "", test:123123 };
 	$scope.openUpdateClass = function () 
 	{
 		//先查出所有project列表
 		$scope.Query.ClassName='all';
 		$scope.query_inclass();  					//在projectctrl里
 		//$scope.OldName = $scope.UpdateClass.OldName;
+		$scope.UpdateClass.test = "hehahehaaa";
 		$('#class_edit').modal('show');
 	}
 	$scope.update = function () 
