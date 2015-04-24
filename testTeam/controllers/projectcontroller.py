@@ -27,9 +27,7 @@ def query():
     for p in data.all():
         if subdata == []:
 #             isChecked = True if p.ProjectId in subdata else False
-            isChecked = False
-            if p.ProjectId in checked_list:
-                isChecked = True
+            isChecked = True if p.ProjectId in checked_list else False
             projects.append({'ProjectId':p.ProjectId,'ProjectName':p.ProjectName,'Introduction':p.Introduction,'CreateDate':p.CreateDate.isoformat(),'LastUpdateDate':p.LastUpdateDate.isoformat(),'Creator':p.UserProfile.Nick,'IsChecked':isChecked})
         else :
             if p.ProjectId in subdata:

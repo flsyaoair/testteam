@@ -158,7 +158,6 @@ function ProjectCtrl($scope, $http)
 		$http.post('/Project/Query', $scope.Query).success(function (result) 
 		{
 			$scope.ProjectListInEdit = result.data;							//“更新分类”里面的项目列表，区别于正常的项目列表
-//			alert($scope.ProjectList);    //明天可以试着在py里面给ProjectListInEdit添加一个属性true or false 来默认显示ck选中否
 		});
 	}
 	$scope.before = 0;
@@ -184,8 +183,9 @@ function ClassCtrl($scope, $http)
 {
 	editor = UE.getEditor('editor');
 	$scope.Class = {Project: []};
+	$scope.UpdateClass = { OldName : "",OldProject: [],Project: []};
 	$scope.toggle = function (p) 
-    {  
+    {
 		p.ck = !p.ck;
 		if ( p.ck == true )
 		{
@@ -195,6 +195,19 @@ function ClassCtrl($scope, $http)
 		{
 			$scope.Class.Project.splice($.inArray((p.ProjectId),$scope.Class.Project),1);
 		}
+    }
+    $scope.toggle2 = function (p) 
+    {
+		p.IsChecked = !p.IsChecked;
+		if ( p.IsChecked == true )
+		{
+			$scope.UpdateClass.Project.push(p.ProjectId);
+		} 
+		else
+		{
+			$scope.UpdateClass.Project.splice($.inArray((p.ProjectId),$scope.UpdateClass.Project),1);
+		}
+		alert($scope.UpdateClass.Project);
     }
     $scope.newclass = function()
 	{
@@ -230,19 +243,22 @@ function ClassCtrl($scope, $http)
 			$scope.ClassesList = result.class_list;
 		});
 	}
-	$scope.UpdateClass = { OldName : "",OldProject: []};
 	$scope.openUpdateClass = function () 
 	{
 		//先查出所有project列表
 		$scope.query_inclass();  					//在projectctrl里
 		$('#class_edit').modal('show');
-		$scope.UpdateClass.NewName=$scope.UpdateClass.OldName;		
+		$scope.UpdateClass.NewName=$scope.UpdateClass.OldName;
+		$scope.UpdateClass.Project = [];
+		for (i in $scope.ProjectList){
+			$scope.UpdateClass.Project.push($scope.ProjectList[i].ProjectId)
+		}
 	}
 	$scope.update = function () 
 	{
 		var btn = $("#btnUpdateClass");
         btn.button('loading');
-        alert(JSON.stringify($scope.ProjectList));
+//        alert(JSON.stringify($scope.ProjectList));
         alert(JSON.stringify($scope.UpdateClass));
         
         btn.button('reset');
