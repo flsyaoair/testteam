@@ -202,12 +202,15 @@ function ClassCtrl($scope, $http)
 		if ( p.IsChecked == true )
 		{
 			$scope.UpdateClass.Project.push(p.ProjectId);
+			alert(JSON.stringify($scope.UpdateClass));
 		} 
 		else
 		{
 			$scope.UpdateClass.Project.splice($.inArray((p.ProjectId),$scope.UpdateClass.Project),1);
+			alert(JSON.stringify($scope.UpdateClass));
 		}
-		alert($scope.UpdateClass.Project);
+//		alert($scope.UpdateClass.Project);
+		alert(JSON.stringify($scope.UpdateClass));
     }
     $scope.newclass = function()
 	{
@@ -249,10 +252,12 @@ function ClassCtrl($scope, $http)
 		$scope.query_inclass();  					//在projectctrl里
 		$('#class_edit').modal('show');
 		$scope.UpdateClass.NewName=$scope.UpdateClass.OldName;
+		$scope.UpdateClass.OldProject = [];
 		$scope.UpdateClass.Project = [];
 		for (i in $scope.ProjectList){
-			$scope.UpdateClass.Project.push($scope.ProjectList[i].ProjectId)
+			$scope.UpdateClass.OldProject.push($scope.ProjectList[i].ProjectId)
 		}
+		$scope.UpdateClass.Project = $scope.UpdateClass.OldProject;
 	}
 	$scope.update = function () 
 	{
@@ -260,7 +265,9 @@ function ClassCtrl($scope, $http)
         btn.button('loading');
 //        alert(JSON.stringify($scope.ProjectList));
         alert(JSON.stringify($scope.UpdateClass));
-        
+        $http.post('/Classes/Update', $scope.UpdateClass).success(function (result){
+        	alert("tongguo!");
+        });
         btn.button('reset');
     }
 	$scope.deleteClass = function () 

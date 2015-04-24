@@ -73,7 +73,7 @@
 			<div class="tab-pane fade active" id="AllView"> </div>
 			<div class="tab-pane fade text-right"  ng-repeat="Class in ClassesList" id="View{{Class.ClassId}}"> 
 				<div class="btn-group">
-					<button type="button" id="btnOpenEditClass" class="btn btn-success btn-xs" ng-click="UpdateClass.OldName=Class.ClassName;UpdateClass.OldProject='test';openUpdateClass()">更新分类</button>
+					<button type="button" id="btnOpenEditClass" class="btn btn-success btn-xs" ng-click="UpdateClass.OldName=Class.ClassName;openUpdateClass()">更新分类</button>
                     <button type="button" id="btnDeleteClass" class="btn btn-danger btn-xs" data-loading-text="正在删除" ng-click="deleteClass()" ng-disabled="1">删除分类</button>
 				</div>
 			</div>
@@ -99,7 +99,7 @@
 								<div class="row">
 									<div class="col-sm-4 col-sm-push-2">
 										<label class="checkbox" ng-repeat="Project in ProjectListInEdit">
-											<input type="checkbox" ng-model="Project.IsChecked" ng-click="toggle2(Project)">{{Project.ProjectName}}{{Project}}
+											<input type="checkbox" ng-model="Project.IsChecked" ng-click="toggle2(Project)">{{Project.ProjectName}}
 										</label>
 									</div>
 								</div>

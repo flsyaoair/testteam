@@ -46,3 +46,10 @@ def query():
 #     subprojects = projectservice.querysub(class_name,'LastUpdateDate',g.user_id)
 #     return jsonify(filterd = True)
 
+@classes.route('/Classes/Update',methods=['POST'])
+def update():
+    oldname = request.json['OldName']
+    newname = request.json['NewName']
+    projectlist = request.json['Project']
+    
+    return jsonify(updated = True)
