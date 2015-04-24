@@ -130,7 +130,7 @@ function ChangePasswordCtrl($scope, $http)
 function ProjectCtrl($scope, $http) 
 {
 	$scope.ProjectList = [];
-	$scope.Query = { PageNo: 1, ProjectName: '', Introduction: '', RowCount: 0, PageCount: 0, ClassName: "all" };
+	$scope.Query = { PageNo: 1, ProjectName: '', Introduction: '', RowCount: 0, PageCount: 0, ClassName: "all", CheckedList: [] };
 	$scope.create = function () 
 	{
 		var btn = $("#btnCreateProject");
@@ -149,16 +149,21 @@ function ProjectCtrl($scope, $http)
 			$scope.ProjectList = result.data;
 		});
 	}
-	$scope.query_inclass = function (){
+	$scope.query_inclass = function (){       //所有的project
+		$scope.Query.ClassName = 'all';
+		$scope.Query.CheckedList = [];
+		for (p in $scope.ProjectList){
+			$scope.Query.CheckedList.push($scope.ProjectList[p].ProjectId);
+		}
 		$http.post('/Project/Query', $scope.Query).success(function (result) 
 		{
-			$scope.ProjectListInEdit = result.data;							//更新分类里面的项目列表，区别于正常的项目列表
+			$scope.ProjectListInEdit = result.data;							//“更新分类”里面的项目列表，区别于正常的项目列表
+//			alert($scope.ProjectList);    //明天可以试着在py里面给ProjectListInEdit添加一个属性true or false 来默认显示ck选中否
 		});
 	}
 	$scope.before = 0;
 	$scope.toggle = function (t) 
 	{
-		
 		$($scope.before).collapse("hide");
 		$(t).collapse("toggle");
 		$scope.before = t;
@@ -193,7 +198,6 @@ function ClassCtrl($scope, $http)
     }
     $scope.newclass = function()
 	{
-		$scope.Query.ClassName='all';
 		$scope.query_inclass();
 		$('#class_add').modal('show');
 	}
@@ -226,21 +230,22 @@ function ClassCtrl($scope, $http)
 			$scope.ClassesList = result.class_list;
 		});
 	}
-	$scope.UpdateClass = { OldName : "", test:123123 };
+	$scope.UpdateClass = { OldName : "",OldProject: []};
 	$scope.openUpdateClass = function () 
 	{
 		//先查出所有project列表
-		$scope.Query.ClassName='all';
 		$scope.query_inclass();  					//在projectctrl里
-		//$scope.OldName = $scope.UpdateClass.OldName;
-		$scope.UpdateClass.test = "hehahehaaa";
 		$('#class_edit').modal('show');
+		$scope.UpdateClass.NewName=$scope.UpdateClass.OldName;		
 	}
 	$scope.update = function () 
 	{
 		var btn = $("#btnUpdateClass");
         btn.button('loading');
-        alert($scope.UpdateClass.OldName);
+        alert(JSON.stringify($scope.ProjectList));
+        alert(JSON.stringify($scope.UpdateClass));
+        
+        btn.button('reset');
     }
 	$scope.deleteClass = function () 
 	{

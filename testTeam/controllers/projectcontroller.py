@@ -21,11 +21,16 @@ def create():
 def query():
     page_no = request.json['PageNo']
     class_name = request.json['ClassName']
+    checked_list = request.json['CheckedList']
     (data,subdata,row_count,page_count,page_no) = projectservice.query(page_no,PAGESIZE_project,'LastUpdateDate',g.user_id,class_name)
     projects = []
     for p in data.all():
         if subdata == []:
-            projects.append({'ProjectId':p.ProjectId,'ProjectName':p.ProjectName,'Introduction':p.Introduction,'CreateDate':p.CreateDate.isoformat(),'LastUpdateDate':p.LastUpdateDate.isoformat(),'Creator':p.UserProfile.Nick})
+#             isChecked = True if p.ProjectId in subdata else False
+            isChecked = False
+            if p.ProjectId in checked_list:
+                isChecked = True
+            projects.append({'ProjectId':p.ProjectId,'ProjectName':p.ProjectName,'Introduction':p.Introduction,'CreateDate':p.CreateDate.isoformat(),'LastUpdateDate':p.LastUpdateDate.isoformat(),'Creator':p.UserProfile.Nick,'IsChecked':isChecked})
         else :
             if p.ProjectId in subdata:
                 projects.append({'ProjectId':p.ProjectId,'ProjectName':p.ProjectName,'Introduction':p.Introduction,'CreateDate':p.CreateDate.isoformat(),'LastUpdateDate':p.LastUpdateDate.isoformat(),'Creator':p.UserProfile.Nick})
