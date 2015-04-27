@@ -198,17 +198,22 @@ function ClassCtrl($scope, $http)
     }
     $scope.toggle2 = function (p) 
     {
+    	//alert(JSON.stringify($scope.UpdateClass));
+    	$scope.tmp = $scope.UpdateClass.OldProject;
+    	//alert($scope.tmp);
 		p.IsChecked = !p.IsChecked;
 		if ( p.IsChecked == true )
 		{
+			alert(JSON.stringify($scope.UpdateClass));
 			$scope.UpdateClass.Project.push(p.ProjectId);
 			alert(JSON.stringify($scope.UpdateClass));
 		} 
 		else
 		{
 			$scope.UpdateClass.Project.splice($.inArray((p.ProjectId),$scope.UpdateClass.Project),1);
-			alert(JSON.stringify($scope.UpdateClass));
 		}
+		//alert($scope.tmp);
+		$scope.UpdateClass.OldProject = $scope.tmp;
 //		alert($scope.UpdateClass.Project);
 		alert(JSON.stringify($scope.UpdateClass));
     }
@@ -255,9 +260,9 @@ function ClassCtrl($scope, $http)
 		$scope.UpdateClass.OldProject = [];
 		$scope.UpdateClass.Project = [];
 		for (i in $scope.ProjectList){
-			$scope.UpdateClass.OldProject.push($scope.ProjectList[i].ProjectId)
+			$scope.UpdateClass.OldProject.push($scope.ProjectList[i].ProjectId);
+			$scope.UpdateClass.Project.push($scope.ProjectList[i].ProjectId)
 		}
-		$scope.UpdateClass.Project = $scope.UpdateClass.OldProject;
 	}
 	$scope.update = function () 
 	{
