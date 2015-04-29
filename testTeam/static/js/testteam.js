@@ -184,6 +184,7 @@ function ClassCtrl($scope, $http)
 	editor = UE.getEditor('editor');
 	$scope.Class = {Project: []};
 	$scope.UpdateClass = { OldName : "",OldProject: [],Project: []};
+	$scope.DeleteClass = { Name : "" };
 	$scope.toggle = function (p) 
     {
 		p.ck = !p.ck;
@@ -198,29 +199,22 @@ function ClassCtrl($scope, $http)
     }
     $scope.toggle2 = function (p) 
     {
-    	//alert(JSON.stringify($scope.UpdateClass));
-    	$scope.tmp = $scope.UpdateClass.OldProject;
-    	//alert($scope.tmp);
 		p.IsChecked = !p.IsChecked;
 		if ( p.IsChecked == true )
 		{
-			alert(JSON.stringify($scope.UpdateClass));
 			$scope.UpdateClass.Project.push(p.ProjectId);
-			alert(JSON.stringify($scope.UpdateClass));
 		} 
 		else
 		{
 			$scope.UpdateClass.Project.splice($.inArray((p.ProjectId),$scope.UpdateClass.Project),1);
 		}
-		//alert($scope.tmp);
-		$scope.UpdateClass.OldProject = $scope.tmp;
-//		alert($scope.UpdateClass.Project);
-		alert(JSON.stringify($scope.UpdateClass));
+//		alert(JSON.stringify($scope.UpdateClass));
     }
     $scope.newclass = function()
 	{
 		$scope.query_inclass();
 		$('#class_add').modal('show');
+		$scope.Class.Project = [];
 	}
 	$scope.create = function () 
 	{
@@ -235,6 +229,7 @@ function ClassCtrl($scope, $http)
 	            $('#class_add').modal('hide');
 		        $scope.query_class();
 		        $('#myTab a:first').tab('show');
+		        $scope.query();
 			}
 			else
 			{
@@ -269,9 +264,10 @@ function ClassCtrl($scope, $http)
 		var btn = $("#btnUpdateClass");
         btn.button('loading');
 //        alert(JSON.stringify($scope.ProjectList));
-        alert(JSON.stringify($scope.UpdateClass));
         $http.post('/Classes/Update', $scope.UpdateClass).success(function (result){
-        	alert("tongguo!");
+        	$scope.query_class();
+        	$scope.query();
+        	$('#class_edit').modal('hide');
         });
         btn.button('reset');
     }
@@ -279,7 +275,19 @@ function ClassCtrl($scope, $http)
 	{
 		var btn = $("#btnDeleteClass");
         btn.button('loading');
-        alert("deleteclass");
-        btn.button('reset');
+        $http.post('/Classes/Delete', $scope.DeleteClass).success(function (result){
+           	btn.button('reset');
+           	$('#myTab a:first').tab('show');
+		    $scope.query_class();
+		    $scope.query();
+        	alert("排序完毕！");
+//        	window.location.href = '/Project';
+        });
+        $scope.query_class();
+	}
+	$scope.test = function (){
+		$scope.query_inclass();
+//		$('#class_add').modal('show');
+		$scope.Class.Project = [];
 	}
 }

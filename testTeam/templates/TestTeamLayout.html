@@ -18,7 +18,12 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a id="profile" data-toggle="dropdown" href="#"><i class="fa fa-user fa-fw"></i>((session['username']))<span class="caret"></span></a>
+                    <a class="dropdown-toggle" id="myDropDown" data-toggle="dropdown" href="#"><i class="fa fa-user fa-fw"></i>((session['username']))<span class="caret"></span></a>
+<!--                    	<script type="text/javascript"> function Test()
+					    {
+					        $('#myDropDown').dropdown('toggle');
+					    } 
+					    </script>-->
                     <ul class="dropdown-menu" role="menu" aria-labelledby="profile">
                         <li><a role="menuitem" href="/Profile"><i class="fa fa-info fa-fw"></i>修改信息</a></li>
                         <li><a role="menuitem" href="/Profile"><i class="fa fa-key fa-fw"></i>修改密码</a></li>

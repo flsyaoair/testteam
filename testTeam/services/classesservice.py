@@ -2,16 +2,23 @@
 from testTeam.models import database, Classes
 from datetime import datetime
 
-def create(classname,project,creator):
-    session = database.get_session()
+def create(classname,projects,creator):
     
+    if projects != None:
+        for project in projects:
+            create_one(classname, project, creator)
+    else:
+        create_one(classname, projects, creator)
+    
+def create_one(classname,project,creator):
+    session = database.get_session()
     c = Classes()
     c.ClassName = classname.strip()
     c.Creator = creator
     c.ProjectId = project
     c.CreateDate = datetime.now()
     c.LastUpdateDate = datetime.now()
-    
+            
     session.add(c)
     session.commit()
     session.close()
@@ -43,4 +50,16 @@ def query():
             class_list.append(i)
             name_list.append(i.ClassName)
     return class_list
+
+def delete(class_name):
+    session = database.get_session()
+    session.query(Classes).filter(Classes.ClassName == class_name).delete()
+    session.commit()
+    session.close()
+    
+def update(oldname,newname,newprojects,creator):
+    delete(oldname)
+    create(newname, newprojects, creator)
+    
+    
     

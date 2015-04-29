@@ -3,7 +3,9 @@
 <div class="post row" ng-controller="ProjectCtrl" ng-init="query()" style="min-height: 98%;_min-height: 98%">
 	<ul id="myTab" class="nav nav-tabs" ng-controller="ClassCtrl" ng-init="query_class()">
 		<li><a href="#AllView" data-toggle="tab" ng-click="Query.ClassName='all';query()">全部</a></li>
-		<li ng-repeat="Class in ClassesList"><a href="#View{{Class.ClassId}}" data-toggle="tab" ng-click="Query.ClassName=Class.ClassName;query()">{{Class.ClassName}}</a></li>
+		<li ng-repeat="Class in ClassesList">
+			<a class="dropdown-toggle" href="#View{{Class.ClassId}}" data-toggle="tab" ng-mouseenter="test()" ng-click="Query.ClassName=Class.ClassName;query()">{{Class.ClassName}}</a>
+		</li>
 		<li><a href="" data-toggle="tab" ng-click="newclass()"> <i class="fa fa-plus fa-fw" style="height: 20px;"></i> </a></li>
 		<script> $(function () {
 		    $('#myTab a:first').tab('show')
@@ -53,6 +55,7 @@
 					<div class="col-xs-8"><strong>项目列表</strong></div>
 					<div class="col-xs-4 text-right" style="margin-top: 0px;">
 						<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#project_add"><i class="fa fa-plus"></i></button>
+						
 					</div>
 				</div>
 			</div>
@@ -66,7 +69,32 @@
               	</div>
         	</div>
         </div>
-		
+		<div class="modal fade" id="project_add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	        <div class="modal-dialog">
+	            <div class="modal-content">
+	                <div class="modal-header">
+	                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	                    <h4 class="modal-title" id="myModalLabel"><i class="fa fa-plus fa-fw"></i>创建新项目</h4>
+	                </div>
+                    <div class="modal-body">
+                        <form role="form" name="createProjectForm">
+                            <div class="form-group">
+                                <label for="ProjectName">项目名称<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="ProjectName" name="ProjectName" ng-model="Project.ProjectName" placeholder="项目名称" required />
+                                <div ng-show="createProjectForm.ProjectName.$dirty&&createProjectForm.ProjectName.$error.required" class="text-danger">请输入项目名称</div>
+                                <br>
+                                <label for="Introduction">项目介绍</label>
+                                <textarea rows="3" type="text" class="form-control" id="Introduction" name="Introduction" ng-model="Project.Introduction" placeholder="项目介绍" /></textarea> 
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle fa-fw"></i>关闭</button>
+                        <button type="button" id="btnCreateProject" ng-disabled="createProjectForm.$invalid" class="btn btn-primary" data-loading-text="正在创建" ng-click="create();"><i class="fa fa-save fa-fw"></i>保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 	</div>
 	<div class="col-sm-9">
 		<div id="myTabContent" class="tab-content" ng-controller="ClassCtrl" ng-init="query_class()">
@@ -74,7 +102,7 @@
 			<div class="tab-pane fade text-right"  ng-repeat="Class in ClassesList" id="View{{Class.ClassId}}"> 
 				<div class="btn-group">
 					<button type="button" id="btnOpenEditClass" class="btn btn-success btn-xs" ng-click="UpdateClass.OldName=Class.ClassName;openUpdateClass()">更新分类</button>
-                    <button type="button" id="btnDeleteClass" class="btn btn-danger btn-xs" data-loading-text="正在删除" ng-click="deleteClass()" ng-disabled="1">删除分类</button>
+                    <button type="button" id="btnDeleteClass" class="btn btn-danger btn-xs" data-loading-text="正在删除" ng-click="DeleteClass.Name=Class.ClassName;deleteClass()" ng-disabled="Class.Creator!=((session['userid']))">删除分类</button>
 				</div>
 			</div>
 			<div class="modal fade" id="class_edit" tabindex;="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -107,33 +135,7 @@
 	                    </div>
 	                    <div class="modal-footer">
 	                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle fa-fw"></i>关闭</button>
-	                        <button type="button" id="btnUpdateClass" class="btn btn-primary" ng-disabled="updateClassForm.$invalid" data-loading-text="正在保存" ng-click="update()"><i class="fa fa-save fa-fw"></i>保存</button>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-			<div class="modal fade" id="project_add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	            <div class="modal-dialog">
-	                <div class="modal-content">
-	                    <div class="modal-header">
-	                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	                        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-plus fa-fw"></i>创建新项目</h4>
-	                    </div>
-	                    <div class="modal-body">
-	                        <form role="form" name="createProjectForm">
-	                            <div class="form-group">
-	                                <label for="ProjectName">项目名称<span class="text-danger">*</span></label>
-	                                <input type="text" class="form-control" id="ProjectName" name="ProjectName" ng-model="Project.ProjectName" placeholder="项目名称" required />
-	                                <div ng-show="createProjectForm.ProjectName.$dirty&&createProjectForm.ProjectName.$error.required" class="text-danger">请输入项目名称</div>
-	                                <br>
-	                                <label for="Introduction">项目介绍</label>
-	                                <textarea rows="3" type="text" class="form-control" id="Introduction" name="Introduction" ng-model="Project.Introduction" placeholder="项目介绍" /></textarea> 
-	                            </div>
-	                        </form>
-	                    </div>
-	                    <div class="modal-footer">
-	                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle fa-fw"></i>关闭</button>
-	                        <button type="button" id="btnCreateProject" ng-disabled="createProjectForm.$invalid" class="btn btn-primary" data-loading-text="正在创建" ng-click="create();"><i class="fa fa-save fa-fw"></i>保存</button>
+	                        <button type="button" id="btnUpdateClass" class="btn btn-primary" ng-disabled="updateClassForm.$invalid" data-loading-text="正在保存" ng-click="Query.ClassName=UpdateClass.NewName;update()"><i class="fa fa-save fa-fw"></i>保存</button>
 	                    </div>
 	                </div>
 	            </div>
