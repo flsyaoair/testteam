@@ -66,3 +66,10 @@ border-left: 1px solid #E5E5E5;
 .dropdown:hover .dropdown-menu {
     display: block;
 }
+
+.modal-tab-content {
+	margin-left: 90px;
+	padding-left: 15px; 
+	border-color: #FFFFFF; 
+	border-left: 1px solid #DDDDDD;
+}

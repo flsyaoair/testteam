@@ -4,7 +4,7 @@
 	<ul id="myTab" class="nav nav-tabs" ng-controller="ClassCtrl" ng-init="query_class()">
 		<li><a href="#AllView" data-toggle="tab" ng-click="Query.ClassName='all';query()">全部</a></li>
 		<li ng-repeat="Class in ClassesList">
-			<a class="dropdown-toggle" href="#View{{Class.ClassId}}" data-toggle="tab" ng-mouseenter="test()" ng-click="Query.ClassName=Class.ClassName;query()">{{Class.ClassName}}</a>
+			<a class="dropdown-toggle" href="#View{{Class.ClassId}}" data-toggle="tab" ng-click="Query.ClassName=Class.ClassName;query()">{{Class.ClassName}}</a>
 		</li>
 		<li><a href="" data-toggle="tab" ng-click="newclass()"> <i class="fa fa-plus fa-fw" style="height: 20px;"></i> </a></li>
 		<script> $(function () {
@@ -16,28 +16,67 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-plus fa-fw"></i>创建新分类</h4>
+                        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-plus fa-fw"></i>分类</h4>
                     </div>
                     <div class="modal-body">
-                        <form class="form-horizontal" role="form" name="createClassForm" novalidate >
-							<div class="form-group"  ng-class="{ 'has-error' : (createClassForm.Name.$dirty&&createClassForm.Name.$error.required) }">
-								<label class="col-sm-2 control-label text-right"><span class="text-danger">*</span>分类名称</label>
-								<div class="col-sm-6">
-									<input class="form-control" ng-model="Class.Name" type="text" name="Name" placeholder="分类名称" required />
-								</div>
-								<div class="col-sm-3">
-					            	<div ng-show="createClassForm.Name.$dirty&&createClassForm.Name.$error.required" class="control-label text-danger" style="text-align: left;">请输入分类名称</div>
-					            	<div ng-show="isExist" class="control-label text-danger" style="text-align: left;">分类名已存在！</div>
-					            </div>
-							</div>
-							<div class="row">
-								<div class="col-sm-4 col-sm-push-2">
-									<label class="checkbox" ng-repeat="Project in ProjectListInEdit">
-										<input type="checkbox" ng-click="toggle(Project)">{{Project.ProjectName}}
-									</label>
-								</div>
-							</div>
-						</form>
+                    			<!--<form class="form-horizontal" role="form" name="createClassForm"  novalidate >
+									<div class="form-group"  ng-class="{ 'has-error' : (createClassForm.Name.$dirty&&createClassForm.Name.$error.required) }">
+										<label class="col-sm-2 control-label text-right"><span class="text-danger">*</span>分类名称</label>
+										<div class="col-sm-6">
+											<input class="form-control" ng-model="Class.Name" type="text" name="Name" placeholder="分类名称" required />
+										</div>
+										<div class="col-sm-4">
+							            	<div ng-show="createClassForm.Name.$dirty&&createClassForm.Name.$error.required" class="control-label text-danger" style="text-align: left;">请输入分类名称</div>
+							            	<div ng-show="isExist" class="control-label text-danger" style="text-align: left;">分类名已存在！</div>
+							            </div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-4 col-sm-push-2">
+											<label class="checkbox" ng-repeat="Project in ProjectListInEdit">
+												<input type="checkbox" ng-model="Project.IsChecked" ng-click="toggle(Project)">{{Project.ProjectName}}
+											</label>
+										</div>
+									</div>
+								  </form>-->
+                    	<div class="tabbable tabs-left">
+			              <ul class="nav nav-tabs">
+			                <li class="active"><a href="#creattab" data-toggle="tab"><strong>创建分类</strong></a></li>
+			                <li class=""><a href="#rB" data-toggle="tab">Section 2</a></li>
+			                <li class=""><a href="#rC" data-toggle="tab">Section 3</a></li>
+			                <li class=""><a href="#rD" data-toggle="tab">Section 4</a></li>
+			                <li class=""><a href="#rE" data-toggle="tab">Section 5</a></li>
+			              </ul>
+			              <div class="tab-content modal-tab-content">
+			                <div class="tab-pane active" id="creattab">
+				            	<form class="form-horizontal" role="form" name="createClassForm"  novalidate >
+									<div class="form-group"  ng-class="{ 'has-error' : (createClassForm.Name.$dirty&&createClassForm.Name.$error.required) }">
+										<label class="col-sm-2 control-label text-right" style="padding: 7px 0px"><span class="text-danger">*</span>分类名称</label>
+										<div class="col-sm-6">
+											<input class="form-control" ng-model="Class.Name" type="text" name="Name" placeholder="分类名称" required />
+										</div>
+										<div class="col-sm-3" style="padding:  0px">
+							            	<div ng-show="createClassForm.Name.$dirty&&createClassForm.Name.$error.required" class="control-label text-danger" style="text-align: left;">请输入分类名称</div>
+							            	<div ng-show="isExist" class="control-label text-danger" style="text-align: left;">分类名已存在！</div>
+							            </div>
+							            <div class="col-sm-4 col-sm-push-2">
+							            <label class="checkbox" ng-repeat="Project in ProjectListInEdit">
+											<input type="checkbox" ng-model="Project.IsChecked" ng-click="toggle(Project)">{{Project.ProjectName}}
+										</label>
+										</div>
+									</div>
+								</form>
+			                </div>
+			                <div class="tab-pane fade" id="rA">
+			                  <p>Howdy, I'm in Section A.</p>
+			                </div>
+			                <div class="tab-pane fade" id="rB">
+			                  <p>Howdy, I'm in Section B.</p>
+			                </div>
+			                <div class="tab-pane fade" id="rC">
+			                  <p>What up girl, this is Section C.</p>
+			                </div>
+			              </div>
+            			</div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle fa-fw"></i>关闭</button>

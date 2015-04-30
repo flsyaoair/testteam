@@ -152,9 +152,11 @@ function ProjectCtrl($scope, $http)
 	$scope.query_inclass = function (){       //所有的project
 		$scope.Query.ClassName = 'all';
 		$scope.Query.CheckedList = [];
-		for (p in $scope.ProjectList){
-			$scope.Query.CheckedList.push($scope.ProjectList[p].ProjectId);
-		}
+		//$scope.ProjectList = [];
+		//for (p in $scope.ProjectList){
+//			$scope.Query.CheckedList.push($scope.ProjectList[p].ProjectId);
+//		}
+		//alert(JSON.stringify($scope.Query));
 		$http.post('/Project/Query', $scope.Query).success(function (result) 
 		{
 			$scope.ProjectListInEdit = result.data;							//“更新分类”里面的项目列表，区别于正常的项目列表
