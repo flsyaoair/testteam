@@ -69,7 +69,9 @@ border-left: 1px solid #E5E5E5;
 
 .modal-tab-content {
 	margin-left: 90px;
-	padding-left: 15px; 
+	padding-left: 15px; 	
+	/*
 	border-color: #FFFFFF; 
 	border-left: 1px solid #DDDDDD;
+	*/
 }
