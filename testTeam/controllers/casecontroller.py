@@ -16,7 +16,7 @@ def creat():
 def detail():
     return render_template('Case/Detail.html')
 
-@case.route('Case/1',methods=['POST'])
+@case.route('/Case/1',methods=['POST'])
 def create_case():
     caseservice.create_case(request.json['case_name'],request.json['description'],request.json['versions'],request.json['caseurl'],g.user_id)
     return jsonify(created=True)
