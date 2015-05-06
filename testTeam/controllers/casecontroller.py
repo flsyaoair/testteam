@@ -16,12 +16,12 @@ def creat():
 def detail():
     return render_template('Case/Detail.html')
 
-@project.route('Case/1',methods=['POST'])
+@case.route('Case/1',methods=['POST'])
 def create_case():
     caseservice.create_case(request.json['case_name'],request.json['description'],request.json['versions'],request.json['caseurl'],g.user_id)
     return jsonify(created=True)
 
-@project.route('/Case/1',methods=['POST'])
+@case.route('/Case/1',methods=['POST'])
 def query_case():
     page_no = request.json['PageNo']
     (data,row_count,page_count,page_no) = query_case(page_no,PAGESIZE_case,'CreateDate',g.user_id,p.ProjectId)
@@ -31,12 +31,12 @@ def query_case():
 
     return jsonify(data=cases,row_count=row_count,page_count=page_count,page_no=page_no)
 
-@project.route('/Case/1',methods=['POST'])
+@case.route('/Case/1',methods=['POST'])
 def del_case():
     caseservice.del_case(request.json['CaseId'])
     return jsonify(deleted=True)
 
-@project.route('/Case/1',methods=['POST'])
+@case.route('/Case/1',methods=['POST'])
 def udpate_case():
     caseservice.udpate_case(request.json['case_name'],request.json['description'],request.json['versions'],request.json['Case_Id'])
     return jsonify(updated=True)
