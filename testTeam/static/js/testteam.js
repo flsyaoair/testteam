@@ -153,21 +153,22 @@ function ProjectCtrl($scope, $http)
 		//alert($scope.ProjectList);
 	}
 	$scope.ProjectList2 = [];
+	$scope.UpdateClass2 = { OldName:'test', OldProject: [],Project: []};
 	$scope.query2 = function () 
 	{
-		//alert(JSON.stringify($scope.Query));
 		$http.post('/Project/Query', $scope.Query).success(function (result) 
 		{
 			//alert(JSON.stringify($scope.Query));
 			$scope.ProjectList2 = result.data;
 			$scope.query_inclass2();
-			$scope.UpdateClass.NewName=$scope.UpdateClass.OldName;
-			$scope.UpdateClass.OldProject = [];
-			$scope.UpdateClass.Project = [];
-			for (i in $scope.ProjectList){
-				$scope.UpdateClass.OldProject.push($scope.ProjectList[i].ProjectId);
-				$scope.UpdateClass.Project.push($scope.ProjectList[i].ProjectId);
+			$scope.UpdateClass2.NewName=$scope.Query.TempClassName;
+			$scope.UpdateClass2.OldProject = [];
+			$scope.UpdateClass2.Project = [];
+			for (i in $scope.ProjectList2){
+				$scope.UpdateClass2.OldProject.push($scope.ProjectList2[i].ProjectId);
+				$scope.UpdateClass2.Project.push($scope.ProjectList2[i].ProjectId);
 			}
+			alert(JSON.stringify($scope.UpdateClass2));
 		});
 	}
 	$scope.query_inclass = function (){       //所有的project
@@ -189,7 +190,6 @@ function ProjectCtrl($scope, $http)
 		for (p in $scope.ProjectList2){
 			$scope.Query.CheckedList.push($scope.ProjectList2[p].ProjectId);
 		}
-		//alert("aaa: "+JSON.stringify($scope.Query));
 		$http.post('/Project/Query', $scope.Query).success(function (result) 
 		{
 			$scope.ProjectListInEdit = result.data;							//“更新分类”里面的项目列表，区别于正常的项目列表

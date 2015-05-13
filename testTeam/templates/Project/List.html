@@ -23,7 +23,7 @@
 			              <ul class="nav nav-tabs" id="subproject">
 			                <li class="active"><a href="#creattab" data-toggle="tab"><strong>创建分类</strong></a></li>
 			                <li ng-repeat="Class in ClassesList">
-			                	<a href="#tab{{Class.ClassId}}" data-toggle="tab" ng-click="Query.ClassName=Class.ClassName;UpdateClass.OldName=Class.ClassName;query2();">{{Class.ClassName}}</a>
+			                	<a href="#tab{{Class.ClassId}}" data-toggle="tab" ng-click="UpdateClass2.OldName=Class.ClassName;Query.ClassName=Class.ClassName;Query.TempClassName=Class.ClassName;query2();">{{Class.ClassName}}</a>
 			                </li>
 							</script>
 			              </ul>
@@ -52,7 +52,7 @@
 									<div class="form-group"  ng-class="{ 'has-error' : (updateClassForm.Name.$dirty&&updateClassForm.Name.$error.required) }">
 										<label class="col-sm-2 control-label text-right" style="padding: 7px 0px"><span class="text-danger">*</span>分类名称</label>
 										<div class="col-sm-6">
-											<input class="form-control" ng-model="UpdateClass.NewName" type="text" name="NewName" placeholder="分类名称" required />
+											<input class="form-control" ng-model="UpdateClass2.NewName" type="text" name="NewName" placeholder="分类名称" required />
 										</div>
 										<div class="col-sm-3" style="padding:  0px">
 							            	<div ng-show="updateClassForm.Name.$dirty&&updateClassForm.Name.$error.required" class="control-label text-danger" style="text-align: left;">请输入分类名称</div>
