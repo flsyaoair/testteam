@@ -279,11 +279,11 @@ function ClassCtrl($scope, $http)
 	{
 		var btn = $("#btnUpdateClass");
         btn.button('loading');
-//        alert(JSON.stringify($scope.ProjectList));
         $http.post('/Classes/Update', $scope.UpdateClass).success(function (result){
         	$scope.query_class();
         	$scope.query();
-        	$('#class_edit').modal('hide');
+        	$('#class_add').modal('hide');
+        	$('#myTab a:first').tab('show');
         });
         btn.button('reset');
     }
@@ -293,16 +293,13 @@ function ClassCtrl($scope, $http)
         btn.button('loading');
         $http.post('/Classes/Delete', $scope.DeleteClass).success(function (result){
            	btn.button('reset');
-           	$('#myTab a:first').tab('show');
+           	//$('#myTab a:first').tab('show');
 		    $scope.query_class();
 		    $scope.query();
-        	alert("排序完毕！");
+		    $('#class_add').modal('hide');
 //        	window.location.href = '/Project';
         });
         $scope.query_class();
-	}
-	$scope.test = function (){
-		alert("OK!");
 	}
 	$scope.ProjectList2 = [];
 	$scope.UpdateClass = { OldProject: [],Project: []};
@@ -323,7 +320,6 @@ function ClassCtrl($scope, $http)
 			}
 //			alert(JSON.stringify($scope.UpdateClass));
 		});
-		$scope.test();
 	}
 	$scope.query_inclass2 = function (){       //所有的project
 		$scope.Query.ClassName = 'all';
@@ -336,5 +332,8 @@ function ClassCtrl($scope, $http)
 		{
 			$scope.ProjectListInEdit = result.data;							//“更新分类”里面的项目列表，区别于正常的项目列表
 		});
+	}
+	$scope.test = function (){
+		alert(JSON.stringify($scope.UpdateClass));
 	}
 }

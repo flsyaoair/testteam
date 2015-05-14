@@ -6,7 +6,7 @@
 		<li ng-repeat="Class in ClassesList">
 			<a class="dropdown-toggle" href="#View{{Class.ClassId}}" data-toggle="tab" ng-click="Query.ClassName=Class.ClassName;query();">{{Class.ClassName}}</a>
 		</li>
-		<li><a href="" data-toggle="tab" ng-click="ProjectList=[1];newclass()"> <i class="fa fa-plus fa-fw" style="height: 20px;"></i> </a></li>
+		<li><a href="" data-toggle="tab" ng-click="ProjectList=[1];newclass()"> <i class="fa fa-cog fa-fw" style="height: 20px;"></i> </a></li>
 		<script> $(function () {
 		    $('#myTab a:first').tab('show')
 		  }) 
@@ -16,14 +16,14 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-plus fa-fw"></i>分类</h4>
+                        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-cog fa-fw"></i>分类</h4>
                     </div>
                     <div class="modal-body">
                     	<div class="tabbable tabs-left">
 			              <ul class="nav nav-tabs" id="subproject">
 			                <li class="active"><a href="#creattab" data-toggle="tab" ng-click="createclass()"><strong>创建分类</strong></a></li>
 			                <li ng-repeat="Class in ClassesList">
-			                	<a href="#tab{{Class.ClassId}}" data-toggle="tab" ng-click="UpdateClass.OldName=Class.ClassName;Query.ClassName=Class.ClassName;query2();">{{Class.ClassName}}{{Class.Creator}}</a>
+			                	<a href="#tab{{Class.ClassId}}" data-toggle="tab" ng-click="Query.ClassName=Class.ClassName;UpdateClass.OldName=Class.ClassName;UpdateClass.Creator=Class.Creator;DeleteClass.Name=Class.ClassName;query2();">{{Class.ClassName}}</a>
 			                </li>
 							</script>
 			              </ul>
@@ -72,8 +72,8 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle fa-fw"></i>关闭</button>
                         <button type="button" id="btnCreateClass" class="btn btn-primary" ng-disabled="createClassForm.$invalid" data-loading-text="正在创建" ng-click="create()"><i class="fa fa-save fa-fw"></i>创建</button>
-                    	<button type="button" id="btnUpdateClass" class="btn btn-success" ng-click="test()"><i class="fa fa-save fa-fw"></i>更新</button>
-                    	<button type="button" id="btnDeleteClass" class="btn btn-danger" data-loading-text="正在删除" ng-click="test()" ng-disabled="Class.Creator!=((session['userid']))"><i class="fa fa-save fa-fw"></i>删除</button>
+                    	<button type="button" id="btnUpdateClass" class="btn btn-success" ng-click="update()"><i class="fa fa-save fa-fw"></i>更新</button>
+                    	<button type="button" id="btnDeleteClass" class="btn btn-danger" data-loading-text="正在删除" ng-click="deleteClass()" ng-disabled="UpdateClass.Creator!=((session['userid']))"><i class="fa fa-save fa-fw"></i>删除</button>
                     </div>
                 </div>
             </div>
