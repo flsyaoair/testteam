@@ -152,27 +152,7 @@ function ProjectCtrl($scope, $http)
 		});
 		//alert($scope.ProjectList);
 	}
-	$scope.ProjectList2 = [];
-	$scope.UpdateClass = { OldProject: [],Project: []};
-	$scope.query2 = function () 
-	{
-		$scope.updateclass();
-		$http.post('/Project/Query', $scope.Query).success(function (result) 
-		{
-			//alert(JSON.stringify($scope.Query));
-			$scope.ProjectList2 = result.data;
-			$scope.query_inclass2();
-			$scope.UpdateClass.NewName=$scope.UpdateClass.OldName;
-			$scope.UpdateClass.OldProject = [];
-			$scope.UpdateClass.Project = [];
-			for (i in $scope.ProjectList2){
-				$scope.UpdateClass.OldProject.push($scope.ProjectList2[i].ProjectId);
-				$scope.UpdateClass.Project.push($scope.ProjectList2[i].ProjectId);
-			}
-//			alert(JSON.stringify($scope.UpdateClass));
-		});
-		$scope.test();
-	}
+	
 	$scope.query_inclass = function (){       //所有的project
 		$scope.Query.ClassName = 'all';
 		$scope.Query.CheckedList = [];
@@ -185,18 +165,7 @@ function ProjectCtrl($scope, $http)
 			$scope.ProjectListInEdit = result.data;							//“更新分类”里面的项目列表，区别于正常的项目列表
 		});
 	}
-	$scope.query_inclass2 = function (){       //所有的project
-		$scope.Query.ClassName = 'all';
-		$scope.Query.CheckedList = [];
-		//$scope.ProjectList = [];
-		for (p in $scope.ProjectList2){
-			$scope.Query.CheckedList.push($scope.ProjectList2[p].ProjectId);
-		}
-		$http.post('/Project/Query', $scope.Query).success(function (result) 
-		{
-			$scope.ProjectListInEdit = result.data;							//“更新分类”里面的项目列表，区别于正常的项目列表
-		});
-	}
+	
 	$scope.before = 0;
 	$scope.toggle = function (t) 
 	{
@@ -334,5 +303,38 @@ function ClassCtrl($scope, $http)
 	}
 	$scope.test = function (){
 		alert("OK!");
+	}
+	$scope.ProjectList2 = [];
+	$scope.UpdateClass = { OldProject: [],Project: []};
+	$scope.query2 = function () 
+	{
+		$scope.updateclass();
+		$http.post('/Project/Query', $scope.Query).success(function (result) 
+		{
+			//alert(JSON.stringify($scope.Query));
+			$scope.ProjectList2 = result.data;
+			$scope.query_inclass2();
+			$scope.UpdateClass.NewName=$scope.UpdateClass.OldName;
+			$scope.UpdateClass.OldProject = [];
+			$scope.UpdateClass.Project = [];
+			for (i in $scope.ProjectList2){
+				$scope.UpdateClass.OldProject.push($scope.ProjectList2[i].ProjectId);
+				$scope.UpdateClass.Project.push($scope.ProjectList2[i].ProjectId);
+			}
+//			alert(JSON.stringify($scope.UpdateClass));
+		});
+		$scope.test();
+	}
+	$scope.query_inclass2 = function (){       //所有的project
+		$scope.Query.ClassName = 'all';
+		$scope.Query.CheckedList = [];
+		//$scope.ProjectList = [];
+		for (p in $scope.ProjectList2){
+			$scope.Query.CheckedList.push($scope.ProjectList2[p].ProjectId);
+		}
+		$http.post('/Project/Query', $scope.Query).success(function (result) 
+		{
+			$scope.ProjectListInEdit = result.data;							//“更新分类”里面的项目列表，区别于正常的项目列表
+		});
 	}
 }
