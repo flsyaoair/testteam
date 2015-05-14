@@ -16,7 +16,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-cog fa-fw"></i>分类</h4>
+                        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-cog fa-fw"></i>分类<small id="createTitle"> （创建）</small><small id="editTitle"> （编辑）</small></h4>
                     </div>
                     <div class="modal-body">
                     	<div class="tabbable tabs-left">
@@ -131,12 +131,12 @@
 	<div class="col-sm-9">
 		<div id="myTabContent" class="tab-content" ng-controller="ClassCtrl" ng-init="query_class()">
 			<div class="tab-pane fade active" id="AllView"> </div>
-			<div class="tab-pane fade text-right"  ng-repeat="Class in ClassesList" id="View{{Class.ClassId}}"> 
+			<!--<div class="tab-pane fade text-right"  ng-repeat="Class in ClassesList" id="View{{Class.ClassId}}"> 
 				<div class="btn-group">
 					<button type="button" id="btnOpenEditClass" class="btn btn-success btn-xs" ng-click="UpdateClass.OldName=Class.ClassName;openUpdateClass()">更新分类</button>
                     <button type="button" id="btnDeleteClass" class="btn btn-danger btn-xs" data-loading-text="正在删除" ng-click="DeleteClass.Name=Class.ClassName;deleteClass()" ng-disabled="Class.Creator!=((session['userid']))">删除分类</button>
 				</div>
-			</div>
+			</div>-->
 			<div class="modal fade" id="class_edit" tabindex;="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		        <div class="modal-dialog">
 		            <div class="modal-content">
