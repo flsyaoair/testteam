@@ -4,10 +4,11 @@ from datetime import datetime
 
 def create(classname,projects,creator):
     
-    if projects != None:
+    if projects != []:
         for project in projects:
             create_one(classname, project, creator)
     else:
+        projects = None
         create_one(classname, projects, creator)
     
 def create_one(classname,project,creator):

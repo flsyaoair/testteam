@@ -11,7 +11,7 @@ classes.before_request(login_filter)
 def create():
     classname = request.json['Name']
     projects = request.json['Project']
-    projects = projects if (len(projects) != 0) else None
+    projects = projects if (len(projects) != 0) else []
     isexist = classesservice.isexist(classname)
     if not isexist:
         classesservice.create(classname,projects,g.user_id)
@@ -41,17 +41,10 @@ def query():
         
     return jsonify(class_list = class_list)
 
-# @classes.route('/Classes/Filter',methods=['POST'])
-# def filter():
-#     class_name = request.json['ClassName']
-#     subprojects = projectservice.querysub(class_name,'LastUpdateDate',g.user_id)
-#     return jsonify(filterd = True)
-
 @classes.route('/Classes/Update',methods=['POST'])
 def update():
     oldname = request.json['OldName']
     newname = request.json['NewName']
-#     oldprojects = request.json['OldProject']
     newprojects = request.json['Project']
     classesservice.update(oldname, newname, newprojects, session['userid'])
     
