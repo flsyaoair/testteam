@@ -153,23 +153,25 @@ function ProjectCtrl($scope, $http)
 		//alert($scope.ProjectList);
 	}
 	$scope.ProjectList2 = [];
-	$scope.UpdateClass2 = { OldName:'test', OldProject: [],Project: []};
+	$scope.UpdateClass = { OldProject: [],Project: []};
 	$scope.query2 = function () 
 	{
+		$scope.updateclass();
 		$http.post('/Project/Query', $scope.Query).success(function (result) 
 		{
 			//alert(JSON.stringify($scope.Query));
 			$scope.ProjectList2 = result.data;
 			$scope.query_inclass2();
-			$scope.UpdateClass2.NewName=$scope.Query.TempClassName;
-			$scope.UpdateClass2.OldProject = [];
-			$scope.UpdateClass2.Project = [];
+			$scope.UpdateClass.NewName=$scope.UpdateClass.OldName;
+			$scope.UpdateClass.OldProject = [];
+			$scope.UpdateClass.Project = [];
 			for (i in $scope.ProjectList2){
-				$scope.UpdateClass2.OldProject.push($scope.ProjectList2[i].ProjectId);
-				$scope.UpdateClass2.Project.push($scope.ProjectList2[i].ProjectId);
+				$scope.UpdateClass.OldProject.push($scope.ProjectList2[i].ProjectId);
+				$scope.UpdateClass.Project.push($scope.ProjectList2[i].ProjectId);
 			}
-			alert(JSON.stringify($scope.UpdateClass2));
+//			alert(JSON.stringify($scope.UpdateClass));
 		});
+		$scope.test();
 	}
 	$scope.query_inclass = function (){       //所有的project
 		$scope.Query.ClassName = 'all';
@@ -202,6 +204,16 @@ function ProjectCtrl($scope, $http)
 		$(t).collapse("toggle");
 		$scope.before = t;
 	}
+	$scope.createclass = function(){
+		$("#btnCreateClass").show();
+		$("#btnUpdateClass").hide();
+		$("#btnDeleteClass").hide();
+	}
+	$scope.updateclass = function(){
+		$("#btnCreateClass").hide();
+		$("#btnUpdateClass").show();
+		$("#btnDeleteClass").show();
+	}
 }
 
 function ModelCtrl($scope, $http) 
@@ -218,7 +230,6 @@ function ClassCtrl($scope, $http)
 {
 	editor = UE.getEditor('editor');
 	$scope.Class = {Project: []};
-	$scope.UpdateClass = { OldName : "",OldProject: [],Project: []};
 	$scope.DeleteClass = { Name : "" };
 	$scope.toggle = function (p) 
     {
@@ -295,18 +306,6 @@ function ClassCtrl($scope, $http)
 			$scope.UpdateClass.Project.push($scope.ProjectList[i].ProjectId);
 		}
 	}
-	$scope.openUpdateClass2 = function () 
-	{
-		//先查出所有project列表
-		$scope.query_inclass2();  					//在projectctrl里
-		$scope.UpdateClass.NewName=$scope.UpdateClass.OldName;
-		$scope.UpdateClass.OldProject = [];
-		$scope.UpdateClass.Project = [];
-		for (i in $scope.ProjectList){
-			$scope.UpdateClass.OldProject.push($scope.ProjectList[i].ProjectId);
-			$scope.UpdateClass.Project.push($scope.ProjectList[i].ProjectId);
-		}
-	}
 	$scope.update = function () 
 	{
 		var btn = $("#btnUpdateClass");
@@ -334,8 +333,6 @@ function ClassCtrl($scope, $http)
         $scope.query_class();
 	}
 	$scope.test = function (){
-		$scope.query_inclass();
-//		$('#class_add').modal('show');
-		$scope.Class.Project = [];
+		alert("OK!");
 	}
 }

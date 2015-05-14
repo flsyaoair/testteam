@@ -11,7 +11,7 @@
 		    $('#myTab a:first').tab('show')
 		  }) 
 		</script>
-		<div class="modal fade" id="class_add" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal fade" id="class_add" aria-labelledby="myModalLabel" aria-hidden="true" ng-init="createclass()">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -21,9 +21,9 @@
                     <div class="modal-body">
                     	<div class="tabbable tabs-left">
 			              <ul class="nav nav-tabs" id="subproject">
-			                <li class="active"><a href="#creattab" data-toggle="tab"><strong>创建分类</strong></a></li>
+			                <li class="active"><a href="#creattab" data-toggle="tab" ng-click="createclass()"><strong>创建分类</strong></a></li>
 			                <li ng-repeat="Class in ClassesList">
-			                	<a href="#tab{{Class.ClassId}}" data-toggle="tab" ng-click="UpdateClass2.OldName=Class.ClassName;Query.ClassName=Class.ClassName;Query.TempClassName=Class.ClassName;query2();">{{Class.ClassName}}</a>
+			                	<a href="#tab{{Class.ClassId}}" data-toggle="tab" ng-click="UpdateClass.OldName=Class.ClassName;Query.ClassName=Class.ClassName;query2();">{{Class.ClassName}}{{Class.Creator}}</a>
 			                </li>
 							</script>
 			              </ul>
@@ -52,7 +52,7 @@
 									<div class="form-group"  ng-class="{ 'has-error' : (updateClassForm.Name.$dirty&&updateClassForm.Name.$error.required) }">
 										<label class="col-sm-2 control-label text-right" style="padding: 7px 0px"><span class="text-danger">*</span>分类名称</label>
 										<div class="col-sm-6">
-											<input class="form-control" ng-model="UpdateClass2.NewName" type="text" name="NewName" placeholder="分类名称" required />
+											<input class="form-control" ng-model="UpdateClass.NewName" type="text" name="NewName" placeholder="分类名称" required />
 										</div>
 										<div class="col-sm-3" style="padding:  0px">
 							            	<div ng-show="updateClassForm.Name.$dirty&&updateClassForm.Name.$error.required" class="control-label text-danger" style="text-align: left;">请输入分类名称</div>
@@ -72,6 +72,8 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle fa-fw"></i>关闭</button>
                         <button type="button" id="btnCreateClass" class="btn btn-primary" ng-disabled="createClassForm.$invalid" data-loading-text="正在创建" ng-click="create()"><i class="fa fa-save fa-fw"></i>创建</button>
+                    	<button type="button" id="btnUpdateClass" class="btn btn-success" ng-click="test()"><i class="fa fa-save fa-fw"></i>更新</button>
+                    	<button type="button" id="btnDeleteClass" class="btn btn-danger" data-loading-text="正在删除" ng-click="test()" ng-disabled="Class.Creator!=((session['userid']))"><i class="fa fa-save fa-fw"></i>删除</button>
                     </div>
                 </div>
             </div>
