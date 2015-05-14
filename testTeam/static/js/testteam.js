@@ -220,7 +220,9 @@ function ClassCtrl($scope, $http)
 		$scope.query_inclass();
 		$('#class_add').modal('show');
 		$scope.Class.Project = [];
-		$('#subproject a:first').tab('show')
+		//每次打开modal时 默认显示创建页面以及创建按钮
+		$('#subproject a:first').tab('show');
+		$scope.createclass();
 	}
 	$scope.create = function () 
 	{
