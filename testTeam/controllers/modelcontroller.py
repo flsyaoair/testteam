@@ -11,7 +11,7 @@ model.before_request(login_filter)
 @model.route('/Model/<int:project_id>')
 def index(project_id):
     project = projectservice.get(project_id)
-    return render_template('Model/List.html',Project = project)
+    return render_template('Model/List.html',Project = project,title = project.ProjectName)
 
 @model.route('/Model/Create',methods=['POST'])
 def create():
