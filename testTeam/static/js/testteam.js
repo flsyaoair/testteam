@@ -350,6 +350,9 @@ function ModelCtrl($scope, $http)
 			btn.button('reset');
 		});
 	}
+	$scope.test = function (){
+		alert("aaa");
+	}
 }
 
 function CaseCtrl($scope, $http) 
