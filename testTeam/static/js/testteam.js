@@ -329,8 +329,14 @@ function ClassCtrl($scope, $http)
 function ModelCtrl($scope, $http) 
 {
 	editor = UE.getEditor('editor');
+	$scope.Query = {};
 	$scope.query = function (){
-		alert("query");
+		//alert($scope.Query.Project);
+		$http.post('/Model/Query', $scope.Query).success(function (result){
+			$scope.ModelList = result.models;
+			//alert("OK!"+JSON.stringify($scope.ModelList));
+			//$('#myTab a:first').tab('show');
+		});
 	}
 	$scope.create = function (){
 		var btn = $("btnCreateModel");
@@ -340,9 +346,6 @@ function ModelCtrl($scope, $http)
 			if (!$scope.isExist){
 				$('#model_add').modal('hide');
 				$scope.query();
-			}
-			else{
-				
 			}
 			btn.button('reset');
 		});

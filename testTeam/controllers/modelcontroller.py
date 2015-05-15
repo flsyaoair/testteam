@@ -20,3 +20,15 @@ def create():
     project = request.json["Project"]
     isExist = modelservice.create(modelname, description, project, g.user_id)
     return jsonify(isExist=isExist)
+
+@model.route('/Model/Query',methods=['POST'])
+def query():
+    project = request.json["Project"]
+    models = modelservice.query(project)
+    models_dict_list = []
+    for m in models:
+        m_dict = {}
+        m_dict.update(m.__dict__)
+        del m_dict["_sa_instance_state"]
+        models_dict_list.append(m_dict)
+    return jsonify(models=models_dict_list)
