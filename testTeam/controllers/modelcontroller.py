@@ -29,6 +29,8 @@ def query():
     for m in models:
         m_dict = {}
         m_dict.update(m.__dict__)
+        m_dict["ProjectName"]=m.Project.ProjectName
+        del m_dict["Project"]
         del m_dict["_sa_instance_state"]
         models_dict_list.append(m_dict)
     return jsonify(models=models_dict_list)

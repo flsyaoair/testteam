@@ -335,7 +335,6 @@ function ModelCtrl($scope, $http)
 		$http.post('/Model/Query', $scope.Query).success(function (result){
 			$scope.ModelList = result.models;
 			//alert("OK!"+JSON.stringify($scope.ModelList));
-			//$('#myTab a:first').tab('show');
 		});
 	}
 	$scope.create = function (){
@@ -351,7 +350,7 @@ function ModelCtrl($scope, $http)
 		});
 	}
 	$scope.test = function (){
-		alert("aaa");
+		alert($scope.ModelList);
 	}
 }
 
