@@ -3,7 +3,6 @@ from testTeam.models import database, Classes
 from datetime import datetime
 
 def create(classname,projects,creator):
-    
     if projects != []:
         for project in projects:
             create_one(classname, project, creator)
@@ -36,6 +35,7 @@ def create_one(classname,project,creator):
 def isexist(classname):
     session = database.get_session()
     existcount = session.query(Classes).filter(Classes.ClassName == classname).count()
+    session.close()
     if existcount > 0:
         return True
     else:

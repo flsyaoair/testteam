@@ -136,7 +136,10 @@
             <div id="myTabContent" class="tab-content">
              <div class="panel-group" id="onlyone">
              	<div ng-repeat="Project in ProjectList">
-              		<div id="demo{{Project.ProjectId}}" class="collapse" > {{Project.Introduction}} <hr><hr><hr></div> 
+              		<div id="demo{{Project.ProjectId}}" class="collapse" > 
+              			{{Project.Introduction}} <hr>
+						<a type="button" class="btn btn-primary" href="/Model/{{Project.ProjectId}}">详细</a>
+					</div> 
              	</div>
              </div>
               <div class="tab-pane fade" id="home">

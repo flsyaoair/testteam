@@ -1,10 +1,10 @@
-﻿{% extends 'TestTeamLayout.html'%}
+{% extends 'TestTeamLayout.html'%}
 {% block subcontent %}
-<div class="post row" style="min-height: 98%;_min-height: 98%">
+<div class="post row" ng-controller="ModelCtrl" ng-init="Model.Project=((Project.ProjectId));query()" style="min-height: 98%;_min-height: 98%">
 		<div class="col-sm-11">
         	<ul id="myTab" class="nav nav-tabs row">
-              <li><a href="#model1" data-toggle="tab">模块1</a></li>
-              <li><a href="#model2" data-toggle="tab">模块2</a></li>
+              <li><a href="#model1" data-toggle="tab">((Project.ProjectName))</a></li>
+              <li><a href="#model2" data-toggle="tab">((Project.ProjectName))</a></li>
               <li><a href="#model3" data-toggle="tab">模块3</a></li>
               <li><a href="#model4" data-toggle="tab">模块4</a></li>
               <li><a href="#model5" data-toggle="tab">模块5</a></li>
@@ -22,9 +22,9 @@
 			}) </script>
         </div>
         <div class="col-sm-1 text-right">
-        	<button type="button" class="btn btn-primary " data-toggle="modal" data-target="#project_add"><i class="fa fa-plus fa-fw"></i></button>
+        	<button type="button" class="btn btn-primary " data-toggle="modal" data-target="#model_add"><i class="fa fa-plus fa-fw"></i></button>
         </div>
-        <div class="modal fade" id="project_add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade" id="model_add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -32,20 +32,21 @@
                         <h4 class="modal-title" id="myModalLabel"><i class="fa fa-plus fa-fw"></i>创建新模块</h4>
                     </div>
                     <div class="modal-body">
-                        <form role="form" name="createProjectForm">
+                        <form role="form" name="createModelForm">
                             <div class="form-group">
-                                <label for="ProjectName">模块名称<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="ProjectName" name="ProjectName" ng-model="Project.ProjectName" placeholder="项目名称" required />
-                                <div ng-show="createProjectForm.ProjectName.$dirty&&createProjectForm.ProjectName.$error.required" class="text-danger">请输入项目名称</div>
+                                <label for="ModelName">模块名称<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="ModelName" name="ModelName" ng-model="Model.ModelName" placeholder="模块名称" required />
+                                <div ng-show="createModelForm.ModelName.$dirty&&createModelForm.ModelName.$error.required" class="text-danger">请输入模块名称</div>
+                                <div ng-show="isExist" class="text-danger">模块名已存在</div>
                                 <br>
-                                <label for="Introduction">介绍</label>
-                                <textarea rows="3" type="text" class="form-control" id="Introduction" name="Introduction" ng-model="Project.Introduction" placeholder="项目介绍" /></textarea> 
+                                <label for="Description">介绍</label>
+                                <textarea rows="3" type="text" class="form-control" id="Description" name="Description" ng-model="Model.Description" placeholder="模块介绍" /></textarea> 
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle fa-fw"></i>关闭</button>
-                        <button type="button" id="btnCreateProject" ng-disabled="createProjectForm.$invalid" class="btn btn-primary" data-loading-text="正在创建" ng-click="create();"><i class="fa fa-save fa-fw"></i>保存</button>
+                        <button type="button" id="btnCreateModel" ng-disabled="createModelForm.$invalid" class="btn btn-primary" data-loading-text="正在创建" ng-click="create();"><i class="fa fa-save fa-fw"></i>保存</button>
                     </div>
                 </div>
             </div>

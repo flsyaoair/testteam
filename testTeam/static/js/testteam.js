@@ -174,17 +174,6 @@ function ProjectCtrl($scope, $http)
 		$scope.before = t;
 	}
 }
-
-function ModelCtrl($scope, $http) 
-{
-	editor = UE.getEditor('editor');
-}
-
-function CaseCtrl($scope, $http) 
-{
-	editor = UE.getEditor('editor');
-}
-
 function ClassCtrl($scope, $http) 
 {
 	editor = UE.getEditor('editor');
@@ -336,4 +325,31 @@ function ClassCtrl($scope, $http)
 			$scope.ProjectListInEdit = result.data;							//“更新分类”里面的项目列表，区别于正常的项目列表
 		});
 	}
+}
+function ModelCtrl($scope, $http) 
+{
+	editor = UE.getEditor('editor');
+	$scope.query = function (){
+		alert("query");
+	}
+	$scope.create = function (){
+		var btn = $("btnCreateModel");
+        btn.button('loading');
+		$http.post('/Model/Create', $scope.Model).success(function (result){
+			$scope.isExist = result.isExist;
+			if (!$scope.isExist){
+				$('#model_add').modal('hide');
+				$scope.query();
+			}
+			else{
+				
+			}
+			btn.button('reset');
+		});
+	}
+}
+
+function CaseCtrl($scope, $http) 
+{
+	editor = UE.getEditor('editor');
 }

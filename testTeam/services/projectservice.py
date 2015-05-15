@@ -2,6 +2,12 @@
 from testTeam.models import Project, database, Member, Classes
 from datetime import datetime
 
+def get(projectid):
+    session = database.get_session()
+    project = session.query(Project).filter(Project.ProjectId == projectid).one()
+    session.close()
+    return project
+
 def create(project_name,project_introduction,creator):
     session = database.get_session()
     p = Project()
