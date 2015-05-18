@@ -4,3 +4,5 @@ from testTeam.models.project import Project
 from testTeam.models.member import Member
 from testTeam.models.classes import Classes
 from testTeam.models.case import case
+from testTeam.models.model import Model
+

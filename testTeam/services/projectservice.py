@@ -1,6 +1,13 @@
 # -*- coding: UTF-8 -*- 
-from testTeam.models import Project, database, Member, Classes
+from testTeam.models import Project, database, Member, Classes, Model
 from datetime import datetime
+from testTeam.services import modelservice
+
+def get(projectid):
+    session = database.get_session()
+    project = session.query(Project).filter(Project.ProjectId == projectid).one()
+    session.close()
+    return project
 
 def create(project_name,project_introduction,creator):
     session = database.get_session()
@@ -40,3 +47,14 @@ def query(page_no,page_size,order_by,current_user,class_name):
 #     session = database.get_session()
 #     subprojects_id = session.query(Classes.ProjectId).filter(Classes.ClassName = class_name)
 #     subproject_list = session.query(Project).filter(Project.ProjectId.in_(subprojects_id))
+
+def delete(projectid):
+    session = database.get_session()
+    models = session.query(Model).filter(Model.ProjectId == projectid).all()
+    #先删除该项目下的模块
+    for m in models:
+        modelservice.delete(m.ModelId)
+         
+    session.query(Project).filter(Project.ProjectId == projectid).delete()
+    session.commit()
+    session.close()

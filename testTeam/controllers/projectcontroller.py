@@ -21,13 +21,21 @@ def create():
 def query():
     page_no = request.json['PageNo']
     class_name = request.json['ClassName']
+    checked_list = request.json['CheckedList']
     (data,subdata,row_count,page_count,page_no) = projectservice.query(page_no,PAGESIZE_project,'LastUpdateDate',g.user_id,class_name)
     projects = []
     for p in data.all():
         if subdata == []:
-            projects.append({'ProjectId':p.ProjectId,'ProjectName':p.ProjectName,'Introduction':p.Introduction,'CreateDate':p.CreateDate.isoformat(),'LastUpdateDate':p.LastUpdateDate.isoformat(),'Creator':p.UserProfile.Nick})
+            isChecked = True if p.ProjectId in checked_list else False
+            projects.append({'ProjectId':p.ProjectId,'ProjectName':p.ProjectName,'Introduction':p.Introduction,'CreateDate':p.CreateDate.isoformat(),'LastUpdateDate':p.LastUpdateDate.isoformat(),'Creator':p.UserProfile.Nick,'IsChecked':isChecked})
         else :
             if p.ProjectId in subdata:
                 projects.append({'ProjectId':p.ProjectId,'ProjectName':p.ProjectName,'Introduction':p.Introduction,'CreateDate':p.CreateDate.isoformat(),'LastUpdateDate':p.LastUpdateDate.isoformat(),'Creator':p.UserProfile.Nick})
     
     return jsonify(data=projects,row_count=row_count,page_count=page_count,page_no=page_no)
+
+@project.route('/Project/Delete',methods=['POST'])
+def delete():
+    projectid = request.json['ProjectId']
+    projectservice.delete(projectid)
+    return jsonify(deleted=True)

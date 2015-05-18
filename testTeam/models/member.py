@@ -13,4 +13,4 @@ class Member(BaseModel):
     ProjectId = Column('ProjectId', Integer,ForeignKey('Project.ProjectId'),nullable = False)
     Project = relationship('Project', foreign_keys=ProjectId,primaryjoin=ProjectId == Project.ProjectId)
     UserId = Column('UserId', Integer,ForeignKey('UserProfile.UserId'),nullable = False)
-    User = relationship('UserProfile', foreign_keys=UserId,primaryjoin=UserId == UserProfile.UserId)
+    User = relationship('UserProfile',lazy='subquery', foreign_keys=UserId,primaryjoin=UserId == UserProfile.UserId)
