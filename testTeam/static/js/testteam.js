@@ -173,6 +173,15 @@ function ProjectCtrl($scope, $http)
 		$(t).collapse("toggle");
 		$scope.before = t;
 	}
+	$scope.delete = function (){
+		var btn = $("#btnDelete");
+        btn.button('loading');
+        $http.post('/Project/Delete', $scope.DeleteProject).success(function (result){
+        	alert("OK");
+           	btn.button('reset');
+        	window.location.href = '/Project';
+        });
+	}
 }
 function ClassCtrl($scope, $http) 
 {
@@ -337,6 +346,9 @@ function ModelCtrl($scope, $http)
 			//alert("OK!"+JSON.stringify($scope.ModelList));
 		});
 	}
+	$scope.openAdd = function() {
+		$('#model_add').modal('show');
+	}
 	$scope.create = function (){
 		var btn = $("btnCreateModel");
         btn.button('loading');
@@ -348,9 +360,6 @@ function ModelCtrl($scope, $http)
 			}
 			btn.button('reset');
 		});
-	}
-	$scope.test = function (){
-		alert($scope.ModelList);
 	}
 }
 

@@ -11,7 +11,7 @@ class Project(BaseModel):
 #    Status = Column('Status', SMALLINT,nullable = False)
 #    Progress = Column('Progress', SMALLINT,nullable=False)
     Creator = Column('Creator', Integer,ForeignKey('UserProfile.UserId'),nullable = False)
-    UserProfile = relationship("UserProfile")
+    UserProfile = relationship("UserProfile",lazy='subquery')
     CreateDate = Column('CreateDate', DateTime,nullable=False)
     LastUpdateDate = Column('LastUpdateDate', DateTime,nullable=False)
     Members = relationship("Member")

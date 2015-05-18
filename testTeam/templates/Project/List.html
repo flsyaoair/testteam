@@ -136,9 +136,14 @@
             <div id="myTabContent" class="tab-content" ng-init="Query.Project='all';query();">
 				<div class="panel-group" id="onlyone">
 	             	<div ng-repeat="Project in ProjectList" >
-	              		<div id="demo{{Project.ProjectId}}" class="collapse"> 
-	              			{{Project.Introduction}} <hr>
-							<a type="button" class="btn btn-primary" href="/Model/{{Project.ProjectId}}">详细</a>
+	              		<div id="demo{{Project.ProjectId}}" class="collapse row">
+	              			<div class="col-md-10">
+		              			<strong class="label label-success">项目简介</strong> {{Project.Introduction}}
+		              		</div>
+		              		<div class="col-md-2 text-right">
+								<a type="button" class="btn btn-primary" href="/Model/{{Project.ProjectId}}">详细</a>
+							</div>
+							<div class="col-md-12"><hr></div>
 						</div> 
 	             	</div>
 				</div>

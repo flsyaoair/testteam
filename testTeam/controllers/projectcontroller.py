@@ -33,3 +33,9 @@ def query():
                 projects.append({'ProjectId':p.ProjectId,'ProjectName':p.ProjectName,'Introduction':p.Introduction,'CreateDate':p.CreateDate.isoformat(),'LastUpdateDate':p.LastUpdateDate.isoformat(),'Creator':p.UserProfile.Nick})
     
     return jsonify(data=projects,row_count=row_count,page_count=page_count,page_no=page_no)
+
+@project.route('/Project/Delete',methods=['POST'])
+def delete():
+    projectid = request.json['ProjectId']
+    projectservice.delete(projectid)
+    return jsonify(deleted=True)

@@ -46,3 +46,9 @@ def query(page_no,page_size,order_by,current_user,class_name):
 #     session = database.get_session()
 #     subprojects_id = session.query(Classes.ProjectId).filter(Classes.ClassName = class_name)
 #     subproject_list = session.query(Project).filter(Project.ProjectId.in_(subprojects_id))
+
+def delete(projectid):
+    session = database.get_session()
+    session.query(Project).filter(Project.ProjectId == projectid).delete()
+    session.commit()
+    session.close()
