@@ -14,4 +14,5 @@ class case(BaseModel):
     Versions = Column("Versions", NVARCHAR(10),nullable=False)
     CaseURL = Column('CaseURL', NVARCHAR(100),nullable=False)
     CreateDate = Column('CreateDate', DateTime,nullable=False)
+    LastUpdateDate = Column('LastUpdateDate', DateTime,nullable=False)    
     DownCount = Column('DownCount', Integer, nullable=True)
