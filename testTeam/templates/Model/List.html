@@ -77,11 +77,11 @@
                                 <div class="col-sm-2"><i class="fa fa-plus fa-fw"></i> </div>
                             </div>
                         </a>
-                        
+                        {% for Member in MemberList %}
                         <li class="list-group-item">
-                            admin-test
+                            ((Member.User.Nick))
                         </li>
-                        
+                        {% endfor %}
                     </ul>
 	            </div>
 			</div>
