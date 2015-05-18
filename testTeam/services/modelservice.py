@@ -35,3 +35,9 @@ def query(projectid):
         models = session.query(Model).all()
     session.close()
     return models
+
+def delete(modelId):
+    session = database.get_session()
+    session.query(Model).filter(Model.ModelId == modelId).delete()
+    session.commit()
+    session.close()

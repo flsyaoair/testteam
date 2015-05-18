@@ -177,10 +177,18 @@ function ProjectCtrl($scope, $http)
 		var btn = $("#btnDelete");
         btn.button('loading');
         $http.post('/Project/Delete', $scope.DeleteProject).success(function (result){
-        	alert("OK");
            	btn.button('reset');
         	window.location.href = '/Project';
         });
+	}
+	$scope.update = function (){
+		//var btn = $("btnUpdate");
+//        btn.button('loading');
+//        $http.post('/Project/Update', $scope.UpdateProject).success(function (result){
+//           	btn.button('reset');
+//        	//window.location.href = '/Project';
+//        });
+		alert("test");
 	}
 }
 function ClassCtrl($scope, $http) 
@@ -359,6 +367,16 @@ function ModelCtrl($scope, $http)
 				$scope.query();
 			}
 			btn.button('reset');
+		});
+	}
+	$scope.DeleteModel = {};
+	$scope.delete = function (){
+		var btn = $("btnDeleteModel");
+        btn.button('loading');
+		$http.post('/Model/Delete', $scope.DeleteModel).success(function (result){
+			btn.button('reset');
+			$scope.query();
+			$('#myTab a:first').tab('show');
 		});
 	}
 }

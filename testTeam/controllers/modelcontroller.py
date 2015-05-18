@@ -34,3 +34,9 @@ def query():
         del m_dict["_sa_instance_state"]
         models_dict_list.append(m_dict)
     return jsonify(models=models_dict_list)
+
+@model.route('/Model/Delete',methods=['POST'])
+def delete():
+    modelId = request.json['ModelId']
+    modelservice.delete(modelId)
+    return jsonify(isDelete = True)
