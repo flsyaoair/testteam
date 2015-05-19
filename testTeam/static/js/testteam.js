@@ -173,7 +173,7 @@ function ProjectCtrl($scope, $http)
 		$(t).collapse("toggle");
 		$scope.before = t;
 	}
-	$scope.delete = function (){
+	$scope.deleteProject = function (){
 		var btn = $("#btnDelete");
         btn.button('loading');
         $http.post('/Project/Delete', $scope.DeleteProject).success(function (result){
@@ -181,16 +181,55 @@ function ProjectCtrl($scope, $http)
         	window.location.href = '/Project';
         });
 	}
-	$scope.update = function (){
-		//var btn = $("btnUpdate");
+	$scope.UpdateProject = {};
+	$scope.openUpdateProject = function (){
+		$('#update_project').modal('show');
+		//var btn = $("btnUpdateProject");
 //        btn.button('loading');
 //        $http.post('/Project/Update', $scope.UpdateProject).success(function (result){
+//        	alert("OK!");
 //           	btn.button('reset');
 //        	//window.location.href = '/Project';
 //        });
-		alert("test");
+	}
+	$scope.updateProject = function (){
+		var btn = $("btnUpdateProject");
+        btn.button('loading');
+        $http.post('/Project/Update', $scope.UpdateProject).success(function (result){
+        	alert("OK!");
+           	btn.button('reset');
+        	window.location.href = '/Model/'+$scope.UpdateProject.ProjectId;
+        });
 	}
 }
+function TeamCtrl($scope, $http){
+	$scope.openTeam = function (){
+		$('#addTeam').modal('show');
+	}
+	$scope.queryTeam = function (){
+		$http.post('/Team/QueryTeam', $scope.QueryTeam).success(function (result){
+           	$scope.MemberList = result.members;
+           	$scope.AllMembers = result.allMembers;
+        	//window.location.href = '/Project';
+        });
+	}
+	$scope.removeMember = function(userId) {
+		$http.post('/Team/RemoveMember', { 'ProjectId': $scope.ProjectId, 'UserId': userId }).success(function (result) {
+            if (result.isRemoved) {
+                //$scope.RemoveSuccess = true;
+                $scope.queryTeam();
+            }
+        });
+	}
+	$scope.addMember = function(Email) {
+		$http.post('/Team/AddMember', { 'ProjectId': $scope.ProjectId, 'Email': Email }).success(function (result) {
+            if (result.isAdded) {
+                $scope.queryTeam();
+            }
+        });
+	}
+}
+
 function ClassCtrl($scope, $http) 
 {
 	editor = UE.getEditor('editor');
@@ -375,6 +414,20 @@ function ModelCtrl($scope, $http)
         btn.button('loading');
 		$http.post('/Model/Delete', $scope.DeleteModel).success(function (result){
 			btn.button('reset');
+			$scope.query();
+			$('#myTab a:first').tab('show');
+		});
+	}
+	$scope.UpdateModel = {};
+	$scope.openUpdateModel = function (){
+		$('#update_model').modal('show');
+	}
+	$scope.updateModel = function (){
+		var btn = $("btnUpdateModel");
+        btn.button('loading');
+		$http.post('/Model/Update', $scope.UpdateModel).success(function (result){
+			btn.button('reset');
+			$('#update_model').modal('hide');
 			$scope.query();
 			$('#myTab a:first').tab('show');
 		});

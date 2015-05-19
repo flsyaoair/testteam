@@ -1,18 +1,11 @@
 {% extends 'TestTeamLayout.html'%}
 {% block subcontent %}
-<div class="post" ng-controller="ModelCtrl" ng-init="Model.Project=((Project.ProjectId));Query.Project=((Project.ProjectId));query()" style="min-height: 98%;_min-height: 98%">
+<div class="post" ng-controller="ModelCtrl" ng-init="Model.Project=((Project.ProjectId));Query.Project=((Project.ProjectId));query()" style="min-height: 98%;min-width: 900px;_min-height: 98%">
 		<!--<div class="col-sm-11">-->
         	<ul id="myTab" class="nav nav-tabs row">
         	  <li><a href="#model" data-toggle="tab">项目信息（((Project.ProjectName))）</a></li>
               <li ng-repeat="Model in ModelList"><a href="#model{{Model.ModelId}}" data-toggle="tab">{{Model.ModelName}}</a></li>
               <li><a data-toggle="tab" ng-click="openAdd();"> <i class="fa fa-plus fa-fw" style="height: 20px;"></i> </a></li>
-              <!--<li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">其他模块 <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#dropdown1" data-toggle="tab">模块3</a></li>
-                  <li><a href="#dropdown2" data-toggle="tab">模块4</a></li>
-                </ul>
-              </li>-->
         	</ul>
 			<script> $(function () {
 				$('#myTab a:first').tab('show')
@@ -51,52 +44,141 @@
 	
 	<div id="myTabContent" class="col-sm-12 tab-content">
 		<div class="row tab-pane fade in active" id="model" style="padding-top: 20px;">
-			<div class="col-sm-10 row">
-				<div class="col-lg-3"><strong class="label label-primary">名称</strong> ((Project.ProjectName))</div>
-				<div class="col-lg-3"><strong class="label label-primary">创建者</strong> ((Project.UserProfile.Nick))</div>
-				<div class="col-lg-3"><strong class="label label-primary">创建日期</strong> ((Project.CreateDate.strftime('%Y-%m-%d %H:%M')))</div>
-				<div class="col-lg-3"><strong class="label label-primary">最后更新</strong> ((Project.LastUpdateDate.strftime('%Y-%m-%d %H:%M')))</div>
-				<div class="col-lg-12"><hr></div>
-				<div class="col-lg-12"><strong class="label label-primary">简介</strong> ((Project.Introduction))</div>
+			<div class="col-xs-10 row">
+				<div class="col-xs-3"><strong class="label label-primary">名称</strong> ((Project.ProjectName))</div>
+				<div class="col-xs-3"><strong class="label label-primary">创建者</strong> ((Project.UserProfile.Nick))</div>
+				<div class="col-xs-3"><strong class="label label-primary">创建日期</strong> ((Project.CreateDate.strftime('%Y-%m-%d %H:%M')))</div>
+				<div class="col-xs-3"><strong class="label label-primary">最后更新</strong> ((Project.LastUpdateDate.strftime('%Y-%m-%d %H:%M')))</div>
+				<div class="col-xs-12"><hr></div>
+				<div class="col-xs-12"><strong class="label label-primary">简介</strong> ((Project.Introduction))</div>
 			</div>
-			<div class="col-sm-2 border-left text-right" ng-controller="ProjectCtrl">
-				<div class="btn-group ">
+			<div class="col-xs-2 border-left text-right" >
+				<div class="btn-group " ng-controller="ProjectCtrl" ng-init="UpdateProject.Introduction=((Project.Introduction));UpdateProject.ProjectName=((Project.ProjectName));">
 	                <!--<a href="/Project" class="btn btn-default btn-xs">返回</a>-->
-	                <button type="button" class="btn btn-success btn-xs" ng-click="edit()">更新</button>
+	                <button type="button" id="btnUpdateProject"  class="btn btn-success btn-xs" ng-click="UpdateProject.ProjectId=((Project.ProjectId));openUpdateProject();">更新</button>
 	                {% if Project.Creator==CurrentUser %}
-	                <button type="button" id="btnDelete" class="btn btn-danger btn-xs" data-loading-text="正在删除" ng-click="DeleteProject.ProjectId=((Project.ProjectId));delete();">删除</button>
+	                <button type="button" id="btnDelete" class="btn btn-danger btn-xs" data-loading-text="正在删除" ng-click="DeleteProject.ProjectId=((Project.ProjectId));deleteProject();">删除</button>
 	                {% else %}
 	                <button type="button" id="btnDelete" class="btn btn-danger btn-xs" disabled="disabled">删除</button>
 	                {% endif %}
+	                <div class="modal fade" id="update_project" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			            <div class="modal-dialog text-left">
+			                <div class="modal-content">
+			                    <div class="modal-header">
+			                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			                        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-pencil-square-o fa-fw"></i>更新项目</h4>
+			                    </div>
+			                    <div class="modal-body">
+			                        <form role="form" name="updateProjectForm">
+			                            <div class="form-group">
+			                                <label for="ProjectName">项目名称<span class="text-danger">*</span></label>
+			                                <input type="text" class="form-control" id="ProjectName" name="ProjectName" ng-model="UpdateProject.ProjectName" placeholder="项目名称" required />
+			                                <div ng-show="updateProjectForm.ProjectName.$dirty&&updateProjectForm.ProjectName.$error.required" class="text-danger">请输入项目名称</div>
+			                                <div ng-show="isExist" class="text-danger">项目名已存在</div>
+			                                <br>
+			                                <label for="Introduction">介绍</label>
+			                                <textarea rows="3" type="text" class="form-control" id="Introduction" name="Introduction" ng-model="UpdateProject.Introduction" placeholder="项目介绍" /></textarea> 
+			                            </div>
+			                        </form>
+			                    </div>
+			                    <div class="modal-footer">
+			                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle fa-fw"></i>关闭</button>
+			                        <button type="button" id="btnUpdateProject" ng-disabled="updateProjectForm.$invalid" class="btn btn-primary" data-loading-text="正在更新" ng-click="updateProject();"><i class="fa fa-save fa-fw"></i>保存</button>
+			                    </div>
+			                </div>
+			            </div>
+			        </div>
 	            </div><br><br>
-	            <div class="text-left">
+	            <div class="text-left" ng-controller="TeamCtrl" ng-init="ProjectId=((Project.ProjectId));QueryTeam.ProjectId=((Project.ProjectId));queryTeam();">
 	            	<ul class="list-group">
-                        <a href="/Project/Team/((Project.ProjectId))" class="list-group-item active">
+                        <a href="" class="list-group-item active" ng-click="openTeam();">
                             <div class="row">
                                 <div class="col-sm-9">团队成员</div>
                                 <div class="col-sm-2"><i class="fa fa-plus fa-fw"></i> </div>
                             </div>
                         </a>
-                        {% for Member in MemberList %}
-                        <li class="list-group-item">
-                            ((Member.User.Nick))
+                        <li class="list-group-item" ng-repeat="Member in MemberList">
+                            {{Member.Nick}}
                         </li>
-                        {% endfor %}
                     </ul>
+                    <div class="modal fade bs-example-modal-lg" id="addTeam" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			            <div class="modal-dialog modal-lg">
+			                <div class="modal-content">
+			                    <div class="modal-header">
+			                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			                        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-plus fa-fw"></i>添加项目成员</h4>
+			                    </div>
+			                    <div class="modal-body">
+			                        <form class="form" role="form" name="addMemberForm" ng-show="((Project.Creator))==((CurrentUser))">
+			                            <div class="input-group">
+							                <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+							                <input type="text" class="form-control" ng-model="Word" placeholder="请输入待添加成员的电子邮件/昵称" />
+							                <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
+							            </div>
+							            <div class="notice notice-info row" ng-show="(AllMembers | filter:Word).length>0 && Word.length>0">
+							                <div ng-repeat="Member in AllMembers | filter:Word">
+							                    <div class="col-sm-3">
+							                        <div class="panel panel-default">
+							                            <div class="panel-body text-center">
+							                                <p>
+							                                    <strong>{{Member.Nick}}</strong>
+							                                </p>
+							                                <p class="text-muted">{{Member.Email}}</p>
+							                                <p>
+							                                    <button type="button" class="btn btn-success" ng-click="addMember(Member.Email)"><i class="fa fa-plus-square fa-fw"></i>添加</button>
+							                                </p>
+							                            </div>
+							                        </div>
+							                    </div>
+							                </div>
+							            </div>
+			                        </form>
+			                        <div class="panel panel-default">
+							            <div class="panel-body">
+							                <div class="row">
+							                    <div ng-repeat="Member in MemberList">
+							                        <div class="col-sm-3">
+							                            <div class="panel panel-default">
+							                                <div class="panel-body text-center">
+							                                    <p>
+							                                        <strong>{{Member.Nick}}</strong>
+							                                    </p>
+							                                    <p class="text-muted">{{Member.Email}}</p>
+							                                    <p>
+							                                        <button ng-show="Creator==CurrentUser" type="button" ng-disabled="( ((Project.Creator))!=((CurrentUser)) )||( Member.UserId==((Project.Creator)) )" class="btn btn-danger" ng-click="removeMember(Member.UserId)"><i class="fa fa-trash-o fa-fw"></i>移除</button>
+							                                    </p>
+							                                </div>
+							                            </div>
+							                        </div>
+							                    </div>
+							                </div>
+							            </div>
+							        </div>
+			                    </div>
+			                    <!--<div class="modal-footer">
+			                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle fa-fw"></i>关闭</button>
+			                        <button type="button" id="btnCreateModel" ng-disabled="createModelForm.$invalid" class="btn btn-primary" data-loading-text="正在创建" ng-click="create();"><i class="fa fa-save fa-fw"></i>保存</button>
+			                    </div>-->
+			                </div>
+			            </div>
+			        </div>
 	            </div>
 			</div>
 		</div>
+		
 		<div class="tab-pane fade" ng-repeat="Model in ModelList" id="model{{Model.ModelId}}" style="padding-top: 20px;">
 			{{Model.ModelName}}+{{Model.Description}}<br>
 			<div class="btn-group ">
-	                <!--<a href="/Project" class="btn btn-default btn-xs">返回</a>-->
-	                <button type="button" id="btnUpdateModel" class="btn btn-success btn-xs" ng-click="update()">更新</button>
-	                <button type="button" id="btnDeleteModel" class="btn btn-danger btn-xs" data-loading-text="正在删除" ng-click="DeleteModel.ModelId=Model.ModelId;delete();" ng-disabled="Model.Creator!=((CurrentUser))">删除</button>
-	            </div>
+	            <!--<a href="/Project" class="btn btn-default btn-xs">返回</a>-->
+	            <button type="button" id="btnUpdateModel" class="btn btn-success btn-xs" ng-click="UpdateModel.ModelId=Model.ModelId;UpdateModel.ModelName=Model.ModelName;UpdateModel.Description=Model.Description;openUpdateModel()">更新</button>
+	            <button type="button" id="btnDeleteModel" class="btn btn-danger btn-xs" data-loading-text="正在删除" ng-click="DeleteModel.ModelId=Model.ModelId;delete();" ng-disabled="Model.Creator!=((CurrentUser))">删除</button>
+	        	
+	        </div>
+	      
 			<table class="table table-striped table-hover "><tbody>
 			        <tr><td style="padding: 18px;">  
 						<div class="row">
-							<div class="col-md-4">
+							<div class="col-md-4" >
 								<div class="col-md-8 col-md-offset-2 post text-center" style="background: #eee; margin-top: 30px;">
 									<h2 style="margin-top: 10px;">v1.0.1</h2>
 								</div>
@@ -176,15 +258,33 @@
 			        </td></tr>
 			</tbody></table>
 		</div>
-		<!--<div class="tab-pane fade" id="model2">
-			<p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+		<div class="modal fade" id="update_model" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	        <div class="modal-dialog text-left">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-pencil-square-o fa-fw"></i>更新模块</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form" name="updateModelForm">
+                            <div class="form-group">
+                                <label for="ModelName">模块名称<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="ModelName" name="ModelName" ng-model="UpdateModel.ModelName" placeholder="模块名称" required />
+                                <div ng-show="updateModelForm.ModelName.$dirty&&updateModelForm.ModelName.$error.required" class="text-danger">请输入模块名称</div>
+                                <div ng-show="isExist" class="text-danger">模块名已存在</div>
+                                <br>
+                                <label for="Description">介绍</label>
+                                <textarea rows="3" type="text" class="form-control" id="Description" name="Description" ng-model="UpdateModel.Description" placeholder="模块介绍" /></textarea> 
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle fa-fw"></i>关闭</button>
+                        <button type="button" id="btnUpdateModel" ng-disabled="updateModelForm.$invalid" class="btn btn-primary" data-loading-text="正在更新" ng-click="updateModel();"><i class="fa fa-save fa-fw"></i>保存</button>
+                    </div>
+                </div>
+            </div>
 		</div>
-		<div class="tab-pane fade" id="model3">
-			<p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.</p>
-		</div>
-		<div class="tab-pane fade" id="dropdown2">
-			<p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral, mustache readymade thundercats keffiyeh craft beer marfa ethical. Wolf salvia freegan, sartorial keffiyeh echo park vegan.</p>
-		</div>-->
 	</div>
 </div>
 {% endblock %}

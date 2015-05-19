@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*- 
 from testTeam.models import Project, database, Member, Classes, Model
 from datetime import datetime
-from testTeam.services import modelservice
+from testTeam.services import modelservice, teamservice
 
 def get(projectid):
     session = database.get_session()
@@ -50,11 +50,23 @@ def query(page_no,page_size,order_by,current_user,class_name):
 
 def delete(projectid):
     session = database.get_session()
+    #先删除项目成员信息
+    members = session.query(Member).filter(Member.ProjectId == projectid).all()
+    for m in members:
+        teamservice.delete(projectid)
+    
+    #再删除该项目下的模块
     models = session.query(Model).filter(Model.ProjectId == projectid).all()
-    #先删除该项目下的模块
     for m in models:
         modelservice.delete(m.ModelId)
          
     session.query(Project).filter(Project.ProjectId == projectid).delete()
+    session.commit()
+    session.close()
+    
+def update(projectId,projectName,introduction):
+    session = database.get_session()
+    session.query(Project).filter(Project.ProjectId == projectId).update({'ProjectName':projectName.strip(),'Introduction':introduction.strip(),'LastUpdateDate':datetime.now()})
+
     session.commit()
     session.close()
