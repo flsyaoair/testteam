@@ -2,7 +2,7 @@
 
 from flask import Module,render_template,jsonify, request,g
 from testTeam.testteamconfig import *
-from testTeam.services import projectservice
+from testTeam.services import projectservice,teamservice
 from testTeam.controllers.filters import login_filter
 
 project = Module(__name__)
@@ -39,3 +39,17 @@ def delete():
     projectid = request.json['ProjectId']
     projectservice.delete(projectid)
     return jsonify(deleted=True)
+
+@project.route('/Project/QueryTeam',methods=['POST'])
+def queryTeam():
+    projectId = request.json['ProjectId']
+    memberList = teamservice.get(projectId)
+    members = []
+    for m in memberList:
+        dict = {}
+        dict.update(m.__dict__)
+        dict["Email"] = m.User.Email
+        dict["User"] = m.User.Nick
+        del dict["_sa_instance_state"]
+        members.append(dict)
+    return jsonify(members = members)

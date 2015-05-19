@@ -191,6 +191,34 @@ function ProjectCtrl($scope, $http)
 		alert("test");
 	}
 }
+function TeamCtrl($scope, $http){
+	$scope.openTeam = function (){
+		$('#addTeam').modal('show');
+	}
+	$scope.queryTeam = function (){
+		$http.post('/Team/QueryTeam', $scope.QueryTeam).success(function (result){
+           	$scope.MemberList = result.members;
+           	$scope.AllMembers = result.allMembers;
+        	//window.location.href = '/Project';
+        });
+	}
+	$scope.removeMember = function(userId) {
+		$http.post('/Team/RemoveMember', { 'ProjectId': $scope.ProjectId, 'UserId': userId }).success(function (result) {
+            if (result.isRemoved) {
+                //$scope.RemoveSuccess = true;
+                $scope.queryTeam();
+            }
+        });
+	}
+	$scope.addMember = function(Email) {
+		$http.post('/Team/AddMember', { 'ProjectId': $scope.ProjectId, 'Email': Email }).success(function (result) {
+            if (result.isAdded) {
+                $scope.queryTeam();
+            }
+        });
+	}
+}
+
 function ClassCtrl($scope, $http) 
 {
 	editor = UE.getEditor('editor');
