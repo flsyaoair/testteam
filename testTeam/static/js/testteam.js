@@ -181,14 +181,25 @@ function ProjectCtrl($scope, $http)
         	window.location.href = '/Project';
         });
 	}
-	$scope.update = function (){
-		//var btn = $("btnUpdate");
+	$scope.UpdateProject = {};
+	$scope.openUpdateProject = function (){
+		$('#update_project').modal('show');
+		//var btn = $("btnUpdateProject");
 //        btn.button('loading');
 //        $http.post('/Project/Update', $scope.UpdateProject).success(function (result){
+//        	alert("OK!");
 //           	btn.button('reset');
 //        	//window.location.href = '/Project';
 //        });
-		alert("update project test");
+	}
+	$scope.updateProject = function (){
+		var btn = $("btnUpdateProject");
+        btn.button('loading');
+        $http.post('/Project/Update', $scope.UpdateProject).success(function (result){
+        	alert("OK!");
+           	btn.button('reset');
+        	window.location.href = '/Model/'+$scope.UpdateProject.ProjectId;
+        });
 	}
 }
 function TeamCtrl($scope, $http){

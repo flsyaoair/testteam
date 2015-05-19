@@ -63,3 +63,10 @@ def delete(projectid):
     session.query(Project).filter(Project.ProjectId == projectid).delete()
     session.commit()
     session.close()
+    
+def update(projectId,projectName,introduction):
+    session = database.get_session()
+    session.query(Project).filter(Project.ProjectId == projectId).update({'ProjectName':projectName.strip(),'Introduction':introduction.strip(),'LastUpdateDate':datetime.now()})
+
+    session.commit()
+    session.close()

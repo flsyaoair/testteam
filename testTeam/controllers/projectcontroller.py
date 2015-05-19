@@ -53,3 +53,11 @@ def queryTeam():
         del dict["_sa_instance_state"]
         members.append(dict)
     return jsonify(members = members)
+
+@project.route('/Project/Update',methods=['POST'])
+def update():
+    projectId = request.json['ProjectId']
+    projectName = request.json['ProjectName']
+    introduction = request.json['Introduction']
+    projectservice.update(projectId, projectName, introduction)
+    return jsonify(updated=True)
