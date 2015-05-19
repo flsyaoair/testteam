@@ -41,3 +41,10 @@ def delete(modelId):
     session.query(Model).filter(Model.ModelId == modelId).delete()
     session.commit()
     session.close()
+    
+def update(modelId, modelName, description):
+    session = database.get_session()
+    session.query(Model).filter(Model.ModelId == modelId).update({'ModelName':modelName.strip(),'Description':description.strip(),'LastUpdateDate':datetime.now()})
+
+    session.commit()
+    session.close()

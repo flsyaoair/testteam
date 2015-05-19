@@ -418,6 +418,21 @@ function ModelCtrl($scope, $http)
 			$('#myTab a:first').tab('show');
 		});
 	}
+	$scope.UpdateModel = {};
+	$scope.openUpdateModel = function (){
+//		alert(JSON.stringify($scope.UpdateModel));
+		$('#update_model').modal('show');
+	}
+	$scope.updateModel = function (){
+		var btn = $("btnUpdateModel");
+        btn.button('loading');
+		$http.post('/Model/Update', $scope.UpdateModel).success(function (result){
+			btn.button('reset');
+			$('#update_model').modal('hide');
+			$scope.query();
+			$('#myTab a:first').tab('show');
+		});
+	}
 }
 
 function CaseCtrl($scope, $http) 

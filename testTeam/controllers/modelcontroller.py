@@ -40,3 +40,11 @@ def delete():
     modelId = request.json['ModelId']
     modelservice.delete(modelId)
     return jsonify(isDelete = True)
+
+@model.route('/Model/Update',methods=['POST'])
+def update():
+    modelId = request.json['ModelId']
+    modelName = request.json['ModelName']
+    description = request.json['Description']
+    modelservice.update(modelId, modelName, description)
+    return jsonify(updated=True)
