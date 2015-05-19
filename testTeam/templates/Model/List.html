@@ -53,11 +53,11 @@
 				<div class="col-xs-12"><strong class="label label-primary">简介</strong> ((Project.Introduction))</div>
 			</div>
 			<div class="col-xs-2 border-left text-right" >
-				<div class="btn-group ">
+				<div class="btn-group " ng-controller="ProjectCtrl">
 	                <!--<a href="/Project" class="btn btn-default btn-xs">返回</a>-->
 	                <button type="button" class="btn btn-success btn-xs" ng-click="update()">更新</button>
 	                {% if Project.Creator==CurrentUser %}
-	                <button type="button" id="btnDelete" class="btn btn-danger btn-xs" data-loading-text="正在删除" ng-click="DeleteProject.ProjectId=((Project.ProjectId));delete();">删除</button>
+	                <button type="button" id="btnDelete" class="btn btn-danger btn-xs" data-loading-text="正在删除" ng-click="DeleteProject.ProjectId=((Project.ProjectId));deleteProject();">删除</button>
 	                {% else %}
 	                <button type="button" id="btnDelete" class="btn btn-danger btn-xs" disabled="disabled">删除</button>
 	                {% endif %}
@@ -118,7 +118,7 @@
 							                                    </p>
 							                                    <p class="text-muted">{{Member.Email}}</p>
 							                                    <p>
-							                                        <button ng-show="Creator==CurrentUser" type="button" ng-disabled="Creator==Member.UserId" class="btn btn-danger" ng-click="removeMember(Member.UserId)"><i class="fa fa-trash-o fa-fw"></i>移除</button>
+							                                        <button ng-show="Creator==CurrentUser" type="button" ng-disabled="( ((Project.Creator))!=((CurrentUser)) )||( Member.UserId==((Project.Creator)) )" class="btn btn-danger" ng-click="removeMember(Member.UserId)"><i class="fa fa-trash-o fa-fw"></i>移除</button>
 							                                    </p>
 							                                </div>
 							                            </div>

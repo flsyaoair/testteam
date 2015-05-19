@@ -29,9 +29,17 @@ def getAll(projectId):
     session.close()
     return members
 
+#删除某项目下的某一个用户
 def removeUser(projectId,userId):
     session = database.get_session()
     session.query(Member).filter(Member.ProjectId==projectId).filter(Member.UserId==userId).delete()
+    session.commit()
+    session.close()
+    
+#删除某项目下的所有用户信息
+def delete(projectId):
+    session = database.get_session()
+    session.query(Member).filter(Member.ProjectId==projectId).delete()
     session.commit()
     session.close()
     

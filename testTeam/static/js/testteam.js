@@ -173,7 +173,7 @@ function ProjectCtrl($scope, $http)
 		$(t).collapse("toggle");
 		$scope.before = t;
 	}
-	$scope.delete = function (){
+	$scope.deleteProject = function (){
 		var btn = $("#btnDelete");
         btn.button('loading');
         $http.post('/Project/Delete', $scope.DeleteProject).success(function (result){
@@ -188,7 +188,7 @@ function ProjectCtrl($scope, $http)
 //           	btn.button('reset');
 //        	//window.location.href = '/Project';
 //        });
-		alert("test");
+		alert("update project test");
 	}
 }
 function TeamCtrl($scope, $http){
