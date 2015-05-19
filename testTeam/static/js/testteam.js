@@ -420,7 +420,6 @@ function ModelCtrl($scope, $http)
 	}
 	$scope.UpdateModel = {};
 	$scope.openUpdateModel = function (){
-//		alert(JSON.stringify($scope.UpdateModel));
 		$('#update_model').modal('show');
 	}
 	$scope.updateModel = function (){
